@@ -1,0 +1,149 @@
+disabled_rules:
+  - todo
+  - trailing_comma
+  - inclusive_language
+  - override_in_extension
+  - no_extension_access_modifier
+
+opt_in_rules:
+  - modifier_order
+  - redundant_nil_coalescing
+  - redundant_type_annotation
+  - single_test_class
+  - yoda_condition
+  - vertical_whitespace_opening_braces
+  - vertical_whitespace_closing_braces
+  - weak_delegate
+  - toggle_bool
+  - sorted_imports
+  - shorthand_optional_binding
+  - self_binding
+  - prefer_zero_over_explicit_init
+  - override_in_extension
+  - no_extension_access_modifier
+  - multiline_parameters_brackets
+  - multiline_literal_brackets
+  - multiline_function_chains
+  - multiline_arguments_brackets
+  - multiline_arguments
+  - lower_acl_than_parent
+  - literal_expression_end_indentation
+  - joined_default_parameter
+  - discouraged_none_name
+  - empty_count
+  - prefer_self_in_static_references
+
+analyzer_rules:
+  - capture_variable
+  - explicit_self
+  - typesafe_array_init
+  - unused_import
+  - unused_declaration
+
+excluded:
+  - Pods
+  - .build
+  - Mantis
+  - BodyEditor/Generated
+  - SourcePackages
+  - BodyEditor/TCMask
+  - EffectPlayground
+
+type_body_length:
+  warning: 350
+  error: 350
+
+file_length:
+  warning: 500
+  error: 500
+
+nesting:
+  type_level: 2
+
+function_parameter_count:
+  warning: 6
+  error: 8
+
+self_binding:
+  bind_identifier: strongSelf
+
+identifier_name:
+  min_length:
+    error: 4
+  excluded:
+    - app
+    - min
+    - max
+    - id
+    - url
+    - key
+    - x
+    - y
+    - y1
+    - y2
+    - i
+    - j
+    - red
+    - a
+    - b
+    - sut
+    - top
+    - row
+    - lhs
+    - rhs
+    - end
+    - c1
+    - t
+    - rgb
+    - all
+    - hsl
+    - sum
+    - roi
+    - hue
+    - p
+    - lut
+    - up
+    - hip
+    - to
+    - geo
+    - me
+    - dev
+    - env
+    - log
+    - car
+    - png
+    - fps
+    - mat
+    - uid
+    - ad
+    - raw
+    - fbc
+    - fbp
+    - tap
+    - tan
+    - bus
+    - cat
+    - dog
+    - car
+    - cow
+    - tie
+    - cup
+    - bed
+    - tv
+    - day
+    - eye
+    - z
+    - leg
+    - arm
+    - ttp
+    - low
+    - mix
+    - s
+    - k
+    - cg
+    - mti
+    - mp
+    - lip
+    - jaw
+    - vnn
+    - hex

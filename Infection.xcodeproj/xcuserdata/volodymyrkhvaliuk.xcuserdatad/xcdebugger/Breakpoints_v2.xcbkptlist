@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "D8EB3FAF-5EC0-4D9C-8461-3A51DF5D6476"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9A16EF2-1457-400A-A0B3-313CE9DBAFFB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "infectCell(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D7271634-15E7-4C68-887D-65D9082B74F6"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "89"
+            endingLineNumber = "89"
+            landmarkName = "infectCell(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 819c05aede0fa681"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "840">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 4a1279e76f568eaa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Infection.Cell) -&gt; Swift.Bool in Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 819c05aede0fa681"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "150"
+                  endingLineNumber = "150"
+                  offsetFromSymbolStart = "808">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 819c05aede0facae"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "816">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 4a1279e76f568485"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Infection.Cell) -&gt; Swift.Bool in Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "73"
+                  endingLineNumber = "73"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 819c05aede0faccd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "1120">
+               </Location>
+               <Location
+                  uuid = "D7271634-15E7-4C68-887D-65D9082B74F6 - 4a1279e76f5684e6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Infection.Cell) -&gt; Swift.Bool in Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "160">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D5694D5-EBFC-4384-922F-652DEAC186E5"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "infectCell(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F91249FB-0670-46B6-9C3A-DD36DCE8B173"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "==(lhs:rhs:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "98E8DBDB-2B3A-43F0-B962-F99C8096ABED"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "==(lhs:rhs:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "98E8DBDB-2B3A-43F0-B962-F99C8096ABED - 577e4d00409dbb98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Infection.CellType.== infix(Infection.CellType, Infection.CellType) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "234"
+                  endingLineNumber = "234"
+                  offsetFromSymbolStart = "204">
+               </Location>
+               <Location
+                  uuid = "98E8DBDB-2B3A-43F0-B962-F99C8096ABED - 577e4d00409dbb98"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static Infection.CellType.== infix(Infection.CellType, Infection.CellType) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "234"
+                  endingLineNumber = "234"
+                  offsetFromSymbolStart = "344">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E6A31577-7491-4494-A595-F4F59E887787"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "infectCell(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A4D9A2F1-DD9A-442E-8A16-8C158BB687B1"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "infectCell(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A4D9A2F1-DD9A-442E-8A16-8C158BB687B1 - 819c05aede0fa6ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "1048">
+               </Location>
+               <Location
+                  uuid = "A4D9A2F1-DD9A-442E-8A16-8C158BB687B1 - 819c05aede0fa6ff"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.infectCell(Infection.Cell) -&gt; ()"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "152"
+                  endingLineNumber = "152"
+                  offsetFromSymbolStart = "1036">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "81C2EACC-36DA-4846-8212-77AB00EDDEE8"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "110"
+            endingLineNumber = "110"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1AB3FA80-E857-457B-B69B-4F101A70C901"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "111"
+            endingLineNumber = "111"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A29B6A63-5C90-4ABD-A846-9B4D22921244"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "114"
+            endingLineNumber = "114"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "56D2B4AA-2BF5-48A6-8D21-B446810FFFF7"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "56D2B4AA-2BF5-48A6-8D21-B446810FFFF7 - 9fce5d22372a3681"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.isCellActive(_: Infection.Cell, excluding: Swift.Optional&lt;Infection.Cell&gt;) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "95"
+                  endingLineNumber = "95"
+                  offsetFromSymbolStart = "444">
+               </Location>
+               <Location
+                  uuid = "56D2B4AA-2BF5-48A6-8D21-B446810FFFF7 - 9fce5d22372a3960"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.isCellActive(_: Infection.Cell, excluding: Swift.Optional&lt;Infection.Cell&gt;) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "94"
+                  endingLineNumber = "94"
+                  offsetFromSymbolStart = "632">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F0DE45E7-D005-4D05-A887-84B012E09675"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9A637C4F-A8E6-4678-9257-37E346F54994"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "109"
+            endingLineNumber = "109"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FE7DA720-E873-4422-8E45-2F7E2B888B91"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D6DBD4F5-5B6D-4C4E-98DF-D0BD673A3AB2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A3F2F2B-13F0-4592-A16A-F7E8CC34EA9F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2A3F2F2B-13F0-4592-A16A-F7E8CC34EA9F - d1d5f891e571ebd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.isCellActive(_: Infection.Cell, excluding: Swift.Array&lt;Infection.Cell&gt;) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "284">
+               </Location>
+               <Location
+                  uuid = "2A3F2F2B-13F0-4592-A16A-F7E8CC34EA9F - d1d5f891e571ebd6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Infection.Game.isCellActive(_: Infection.Cell, excluding: Swift.Array&lt;Infection.Cell&gt;) -&gt; Swift.Bool"
+                  moduleName = "Infection"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/volodymyrkhvaliuk/XCode%20Projects/Infection/Infection/FieldView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "107"
+                  endingLineNumber = "107"
+                  offsetFromSymbolStart = "456">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "564B1E22-8C54-421C-8AEC-2A4EA355E1DA"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Infection/FieldView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "isCellActive(_:excluding:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
