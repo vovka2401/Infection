@@ -1,6 +1,6 @@
 import SwiftUI
 
-class Cluster: Equatable {
+class Cluster {
     var constantCells: [Cell] = []
     var temporaryCells: [Cell] = []
     var isActive: Bool { !temporaryCells.isEmpty }
@@ -46,7 +46,9 @@ class Cluster: Equatable {
     func isBoundaryToCell(_ cell: Cell, obstructions: [Obstruction] = []) -> Bool {
         constantCells.contains(where: { $0.isBoundaryTo(cell, obstructions: obstructions) })
     }
+}
 
+extension Cluster: Equatable {
     static func == (lhs: Cluster, rhs: Cluster) -> Bool {
         lhs === rhs
     }

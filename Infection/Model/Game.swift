@@ -82,7 +82,7 @@ class Game: ObservableObject {
         return false
     }
 
-    // TODO:
+    // TODO: implement
     func isCellConnectedWithCluster(cell _: Cell, cluster _: Cluster) -> Bool { false }
 
     // TODO: make portals not recursive to crash
