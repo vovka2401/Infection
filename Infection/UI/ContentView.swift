@@ -1,9 +1,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    @StateObject var matchManager = MatchManager()
     @StateObject var game: Game
 
     init() {
+        _game = StateObject(wrappedValue: ContentView.testGame)
+    }
+
+    var body: some View {
+        ZStack {
+            if matchManager.isGameOver {
+            } else if matchManager.inGame {
+                GameView(game: game)
+            } else {
+                MenuView(matchManager: matchManager)
+            }
+        }
+        .onAppear {
+            matchManager.authentificateUser()
+        }
+    }
+}
+
+extension ContentView {
+    static var testGame: Game {
         let players = [
             Player(name: "Player 1", color: .yellow),
             Player(name: "Player 2", color: .blue),
@@ -78,20 +99,12 @@ struct ContentView: View {
             size: CGSize(width: 10, height: 10),
             cells: cells,
             obstructions: [
-                Obstruction(
-                    firstCoordinate: CellCoordinate(x: 2, y: 2), secondCoordinate: CellCoordinate(x: 2, y: 3)
-                ),
-                Obstruction(
-                    firstCoordinate: CellCoordinate(x: 2, y: 0), secondCoordinate: CellCoordinate(x: 2, y: 1)
-                ),
+                Obstruction(coordinates: (CellCoordinate(x: 2, y: 2), CellCoordinate(x: 2, y: 3))),
+                Obstruction(coordinates: (CellCoordinate(x: 2, y: 0), CellCoordinate(x: 2, y: 1))),
             ]
         )
         let game = Game(map: map, players: players, currentTurn: Turn(player: players[0]))
-        _game = StateObject(wrappedValue: game)
-    }
-
-    var body: some View {
-        GameView(game: game)
+        return game
     }
 }
 

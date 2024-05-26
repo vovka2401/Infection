@@ -8,5 +8,3 @@ enum PlayerAuthState: String {
     case error = "There was an error logging into Game Center."
     case restricted = "You are not allowed to play multiplayer games!"
 }
-
-let maxTimeRemaining = 20

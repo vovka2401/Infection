@@ -1,13 +1,15 @@
 import SwiftUI
 
 struct MenuView: View {
-    @ObservedObject var matchManager = MatchManager()
+    @ObservedObject var matchManager: MatchManager
 
     var body: some View {
         Color.yellow
             .ignoresSafeArea()
             .overlay {
-                Button {} label: {
+                Button {
+                    matchManager.inGame = true
+                } label: {
                     Text("PLAY")
                         .fontWeight(.semibold)
                         .frame(height: 50)
