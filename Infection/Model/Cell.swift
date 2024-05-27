@@ -32,7 +32,7 @@ class Cell: ObservableObject, Equatable {
     func isBoundaryTo(_ other: Cell, obstructions: [Obstruction] = []) -> Bool {
         !obstructions.contains(
             where: {
-                ($0.firstCoordinate + $0.secondCoordinate) == other.coordinate + self.coordinate
+                ($0.coordinates.0 + $0.coordinates.1) == other.coordinate + self.coordinate
                     + CellCoordinate(x: 1, y: 1)
             }
         ) && coordinate.isBoundaryTo(other.coordinate)

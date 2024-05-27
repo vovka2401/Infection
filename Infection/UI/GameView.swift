@@ -26,7 +26,7 @@ struct GameView: View {
         .animation(.easeInOut, value: game.currentTurn.player.color)
     }
 
-    var map: View {
+    var map: some View {
         ScrollView([.horizontal]) {
             Rectangle()
                 .fill(Color(red: 0.1, green: 0.1, blue: 0.2))
@@ -51,8 +51,8 @@ struct GameView: View {
                     ForEach(game.map.obstructions, id: \.id) { obstruction in
                         ObstructionView(obstruction: obstruction)
                             .position(
-                                x: CGFloat((obstruction.firstCoordinate.x + obstruction.secondCoordinate.x) * 25),
-                                y: CGFloat((obstruction.firstCoordinate.y + obstruction.secondCoordinate.y) * 25)
+                                x: CGFloat((obstruction.coordinates.0.x + obstruction.coordinates.1.x) * 25),
+                                y: CGFloat((obstruction.coordinates.0.y + obstruction.coordinates.1.y) * 25)
                             )
                     }
                 }
@@ -60,7 +60,7 @@ struct GameView: View {
         .frame(height: game.map.size.height * 50)
     }
 
-    var gameOverView: View {
+    var gameOverView: some View {
         Color.white.opacity(0.5)
             .overlay {
                 VStack {
