@@ -27,7 +27,6 @@ class Game: ObservableObject {
         guard !cell.type.isPortal(), player != currentTurn.player, playerCellType != .constant else {
             return
         }
-        // TODO: change finding method to availableCells
         if availableCells.contains(cell) {
             removeCellFromClusters(cell)
             cell.infect(by: currentTurn.player)
