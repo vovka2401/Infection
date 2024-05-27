@@ -24,18 +24,14 @@ class Game: ObservableObject {
 
     func infectCell(_ cell: Cell) {
         let (player, playerCellType) = cell.getPlayerWithPlayerCellType()
-        guard !cell.type.isPortal(), player != currentTurn.player, playerCellType != .constant else {
-            return
-        }
-        if availableCells.contains(cell) {
-            removeCellFromClusters(cell)
-            cell.infect(by: currentTurn.player)
-            addCellToClusters(cell)
-            currentTurn.step += 1
-            updateCurrentTurn()
-            objectWillChange.send()
-            return
-        }
+        guard !cell.type.isPortal(), player != currentTurn.player, playerCellType != .constant,
+              availableCells.contains(cell) else { return }
+        removeCellFromClusters(cell)
+        cell.infect(by: currentTurn.player)
+        addCellToClusters(cell)
+        currentTurn.step += 1
+        updateCurrentTurn()
+        objectWillChange.send()
     }
 
     func updateCurrentTurn() {
@@ -63,70 +59,31 @@ class Game: ObservableObject {
     func isCellAvailable(cell: Cell) -> Bool {
         let currentPlayer = currentTurn.player
         let (player, playerCellType) = cell.getPlayerWithPlayerCellType()
-        if playerCellType == .temporary && player != currentPlayer || cell.type == .default {
-            for cluster in map.clusters.filter({ $0.player == currentPlayer })
-                where cluster.isBoundaryToCell(cell, obstructions: map.obstructions)
-                || isCellAvailableToClusterThroughPortals(cell: cell, cluster: cluster) {
-                if isClusterActiveThroughPortals(cluster) {
-                    return true
-                }
+        guard playerCellType == .temporary && player != currentPlayer || cell.type == .default else { return false }
+        for cluster in map.clusters.filter({ $0.player == currentPlayer })
+            where cluster.isBoundaryToCell(cell, obstructions: map.obstructions) {
+            if isClusterActiveThroughPortals(cluster) {
+                return true
             }
-            for temporaryCell in map.cells.filter({ $0.type == .player(currentPlayer, .temporary) }) {
-                if cell.isBoundaryTo(temporaryCell, obstructions: map.obstructions)
-                    || isCellAvailableToCellThroughPortals(cell: cell, temporaryCell: temporaryCell) {
-                    return true
-                }
+        }
+        for temporaryCell in map.cells.filter({ $0.type == .player(currentPlayer, .temporary) }) {
+            if temporaryCell.isBoundaryTo(cell, obstructions: map.obstructions) {
+                return true
+            }
+        }
+        for portal in map.cells.filter({ $0.type.isPortal() }) where portal.isBoundaryTo(
+            cell,
+            obstructions: map.obstructions
+        ) {
+            if isPortalActive(portal) {
+                return true
             }
         }
         return false
     }
 
-    // TODO: implement
-    func isCellConnectedWithCluster(cell _: Cell, cluster _: Cluster) -> Bool { false }
-
-    // TODO: make portals not recursive to crash
-    func isCellAvailableToClusterThroughPortals(cell: Cell, cluster: Cluster, excluding cells: [Cell] = []) -> Bool {
-        if cluster.isBoundaryToCell(cell, obstructions: map.obstructions) {
-            return true
-        }
-        var isAvailable = false
-        for boundaryCell in map.cells.filter({ !cells.contains($0) && $0.isBoundaryTo(
-            cell,
-            obstructions: map.obstructions
-        ) })
-            where boundaryCell.type.isPortal() {
-            if let connectedPortal = getConnectedPortal(of: boundaryCell) {
-                isAvailable =
-                    isCellAvailableToClusterThroughPortals(
-                        cell: connectedPortal,
-                        cluster: cluster,
-                        excluding: cells + [boundaryCell, connectedPortal]
-                    )
-                    || isAvailable
-            }
-        }
-        return isAvailable
-    }
-
-    // TODO: make portals not recursive to crash
-    func isCellAvailableToCellThroughPortals(cell: Cell, temporaryCell: Cell) -> Bool {
-        if temporaryCell.isBoundaryTo(cell, obstructions: map.obstructions) {
-            return true
-        }
-        var isAvailable = false
-        for boundaryCell in map.cells.filter({ $0.isBoundaryTo(cell, obstructions: map.obstructions) })
-            where boundaryCell.type.isPortal() {
-            if let connectedPortal = getConnectedPortal(of: boundaryCell) {
-                isAvailable =
-                    isCellAvailableToCellThroughPortals(cell: connectedPortal, temporaryCell: temporaryCell)
-                        || isAvailable
-            }
-        }
-        return isAvailable
-    }
-
     func isClusterActiveThroughPortals(_ cluster: Cluster, excluding portals: [Cell] = []) -> Bool {
-        if cluster.isActive {
+        if cluster.player == currentTurn.player, cluster.isActive {
             return true
         }
         for portal in map.cells.filter({ !portals.contains($0) })
@@ -147,16 +104,13 @@ class Game: ObservableObject {
                     if boundaryCellOfConnectedPortal.type == .player(currentTurn.player, .temporary) {
                         return true
                     }
-                    if let connectedPortalOfBoundaryCell = getConnectedPortal(
-                        of: boundaryCellOfConnectedPortal
-                    ),
-                        isPortalActive(
-                            connectedPortalOfBoundaryCell,
-                            excluding: portals + [
-                                portal, connectedPortal, boundaryCellOfConnectedPortal,
-                                connectedPortalOfBoundaryCell,
-                            ]
-                        ) {
+                    if boundaryCellOfConnectedPortal.type.isPortal(),
+                       isPortalActive(
+                           boundaryCellOfConnectedPortal,
+                           excluding: portals + [
+                               portal, connectedPortal, boundaryCellOfConnectedPortal,
+                           ]
+                       ) {
                         return true
                     }
                 }
@@ -166,33 +120,28 @@ class Game: ObservableObject {
     }
 
     func isPortalActive(_ portal: Cell, excluding cells: [Cell] = []) -> Bool {
-        if let connectedPortal = getConnectedPortal(of: portal) {
-            for boundaryClusterOfConnectedPortal in map.clusters.filter({
-                $0.isBoundaryToCell(connectedPortal, obstructions: map.obstructions)
-            }) {
-                if isClusterActiveThroughPortals(
-                    boundaryClusterOfConnectedPortal, excluding: cells + [portal, connectedPortal]
-                ) {
-                    return true
-                }
+        guard let connectedPortal = getConnectedPortal(of: portal) else { return false }
+        for boundaryClusterOfConnectedPortal in map.clusters.filter({
+            $0.isBoundaryToCell(connectedPortal, obstructions: map.obstructions)
+        }) {
+            if isClusterActiveThroughPortals(
+                boundaryClusterOfConnectedPortal, excluding: cells + [portal, connectedPortal]
+            ) {
+                return true
             }
-            for boundaryCellOfConnectedPortal in map.cells.filter({
-                !cells.contains($0) && $0.isBoundaryTo(connectedPortal, obstructions: map.obstructions)
-            }) {
-                if boundaryCellOfConnectedPortal.type == .player(currentTurn.player, .temporary) {
-                    return true
-                }
-                if let connectedPortalOfBoundaryCell = getConnectedPortal(
-                    of: boundaryCellOfConnectedPortal
-                ),
-                    isPortalActive(
-                        connectedPortalOfBoundaryCell,
-                        excluding: cells + [
-                            portal, connectedPortal, boundaryCellOfConnectedPortal, connectedPortalOfBoundaryCell,
-                        ]
-                    ) {
-                    return true
-                }
+        }
+        for boundaryCellOfConnectedPortal in map.cells.filter({
+            !cells.contains($0) && $0.isBoundaryTo(connectedPortal, obstructions: map.obstructions)
+        }) {
+            if boundaryCellOfConnectedPortal.type == .player(currentTurn.player, .temporary) {
+                return true
+            }
+            if boundaryCellOfConnectedPortal.type.isPortal(),
+               isPortalActive(
+                   boundaryCellOfConnectedPortal,
+                   excluding: cells + [portal, connectedPortal, boundaryCellOfConnectedPortal]
+               ) {
+                return true
             }
         }
         return false
