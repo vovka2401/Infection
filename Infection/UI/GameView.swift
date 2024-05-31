@@ -27,7 +27,7 @@ struct GameView: View {
     }
 
     var map: some View {
-        ScrollView([.horizontal]) {
+        MapView {
             Rectangle()
                 .fill(Color(red: 0.1, green: 0.1, blue: 0.2))
                 .frame(width: game.map.size.width * 50, height: game.map.size.height * 50)

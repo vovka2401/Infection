@@ -24,6 +24,7 @@
 		44671F422C00DC0C004DB08A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 44671F412C00DC0C004DB08A /* .swiftlint.yml */; };
 		44671F442C00DCD2004DB08A /* .swiftformat in Resources */ = {isa = PBXBuildFile; fileRef = 44671F432C00DCD2004DB08A /* .swiftformat */; };
 		44716AB32C0164B700BE5B9B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 44716AB22C0164B700BE5B9B /* .gitignore */; };
+		448EB2D12C0A10E600ACAE3B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 448EB2D02C0A10E600ACAE3B /* MapView.swift */; };
 		44D088A92BFCC36400157EAD /* InfectionApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D088A82BFCC36400157EAD /* InfectionApp.swift */; };
 		44D088AB2BFCC36400157EAD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D088AA2BFCC36400157EAD /* ContentView.swift */; };
 		44D088AD2BFCC36500157EAD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D088AC2BFCC36500157EAD /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 		44671F432C00DCD2004DB08A /* .swiftformat */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		44716AB22C0164B700BE5B9B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		44716AB42C024E1A00BE5B9B /* Infection.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Infection.entitlements; sourceTree = "<group>"; };
+		448EB2D02C0A10E600ACAE3B /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		44D088A52BFCC36400157EAD /* Infection.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Infection.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44D088A82BFCC36400157EAD /* InfectionApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfectionApp.swift; sourceTree = "<group>"; };
 		44D088AA2BFCC36400157EAD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 				44539D3C2C03FBD90055E425 /* CellView.swift */,
 				44539D3F2C03FC090055E425 /* ObstructionView.swift */,
 				44D088BC2BFCC7D400157EAD /* GameView.swift */,
+				448EB2D02C0A10E600ACAE3B /* MapView.swift */,
 				44D088B62BFCC39400157EAD /* MenuView.swift */,
 				44D088AA2BFCC36400157EAD /* ContentView.swift */,
 				44539D502C0400FD0055E425 /* GifImageView.swift */,
@@ -241,6 +244,7 @@
 				44539D552C04017B0055E425 /* Map.swift in Sources */,
 				44539D402C03FC090055E425 /* ObstructionView.swift in Sources */,
 				44539D4B2C03FD790055E425 /* Player.swift in Sources */,
+				448EB2D12C0A10E600ACAE3B /* MapView.swift in Sources */,
 				44539D512C0400FD0055E425 /* GifImageView.swift in Sources */,
 				44D088B92BFCC3DB00157EAD /* MatchManager.swift in Sources */,
 				44539D492C03FD420055E425 /* Turn.swift in Sources */,
