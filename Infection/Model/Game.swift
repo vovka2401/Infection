@@ -3,21 +3,24 @@ import SwiftUI
 class Game: ObservableObject {
     @Published var map: Map
     @Published var isOver = false
+    @Published var availableCells: [Cell] = []
+    @Published var foggedCells: [Cell] = []
+    @Published var settings: GameSettings
     let players: [Player]
-    let settings = GameSettings()
     var currentTurn: Turn
-    var availableCells: [Cell] = []
 
-    init(map: Map, players: [Player], currentTurn: Turn) {
+    init(map: Map, players: [Player], currentTurn: Turn, settings: GameSettings) {
         self.map = map
         self.players = players
         self.currentTurn = currentTurn
+        self.settings = settings
         updateAvailableCells()
     }
 
     func restart() {
         isOver = false
-        map.reset()
+        map = Map.testMap1
+//        map.reset()
         currentTurn = Turn(player: players[0])
         updateAvailableCells()
     }
@@ -53,6 +56,9 @@ class Game: ObservableObject {
 
     func updateAvailableCells() {
         availableCells = map.cells.filter { isCellAvailable(cell: $0) }
+        objectWillChange.send()
+        map.objectWillChange.send()
+        print(availableCells.map({ $0.coordinate }))
     }
 
     // TODO: we can look for either active clusters or active cells, which are connected to portals
@@ -197,15 +203,5 @@ class Game: ObservableObject {
     func addCellToCluster(cell: Cell, cluster: Cluster) {
         cell.cluster = cluster
         cluster.addCell(cell)
-    }
-}
-
-struct GameSettings {
-    let maxCountOfPlayers: Int
-    let countOfStepsPerTurn: Int
-
-    init(maxCountOfPlayers: Int = 2, countOfStepsPerTurn: Int = 3) {
-        self.maxCountOfPlayers = maxCountOfPlayers
-        self.countOfStepsPerTurn = countOfStepsPerTurn
     }
 }

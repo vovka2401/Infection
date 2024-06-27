@@ -1,18 +1,20 @@
 import SwiftUI
 
 class Cell: ObservableObject, Equatable {
-    let coordinate: CellCoordinate
     @Published var type: CellType
+    let coordinate: CellCoordinate
+    let form: CellForm
     weak var cluster: Cluster?
 
-    init(coordinate: CellCoordinate, type: CellType = .default) {
+    init(coordinate: CellCoordinate, form: CellForm = .rectangle, type: CellType = .default) {
         self.coordinate = coordinate
+        self.form = form
         self.type = type
     }
 
     func getPlayerWithPlayerCellType() -> (player: Player?, playerCellType: PlayerCellType?) {
         switch type {
-        case .default, .portal:
+        case .default, .portal, .none:
             return (nil, nil)
         case let .player(player, playerCellType):
             return (player, playerCellType)
@@ -43,32 +45,8 @@ class Cell: ObservableObject, Equatable {
     }
 }
 
-enum CellType: Equatable {
-    case `default`
-    case portal(Int)
-    case player(Player, PlayerCellType)
-
-    func isPortal() -> Bool {
-        switch self {
-        case .portal: return true
-        default: return false
-        }
-    }
-
-    func portalNumber() -> Int? {
-        switch self {
-        case let .portal(number): return number
-        default: return nil
-        }
-    }
-
-    static func == (lhs: CellType, rhs: CellType) -> Bool {
-        switch (lhs, rhs) {
-        case (.default, .default): return true
-        case let (.portal(portal1), .portal(portal2)): return portal1 == portal2
-        case let (.player(player1, type1), .player(player2, type2)):
-            return player1 == player2 && type1 == type2
-        default: return false
-        }
+extension Cell: Copyable {
+    func copy() -> Cell {
+        Cell(coordinate: coordinate, type: type)
     }
 }

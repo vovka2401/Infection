@@ -1,28 +1,42 @@
 import SwiftUI
 
 struct MenuView: View {
-    @ObservedObject var matchManager: MatchManager
+    @EnvironmentObject var matchManager: MatchManager
 
     var body: some View {
         Color.yellow
             .ignoresSafeArea()
             .overlay {
-                Button {
-                    matchManager.inGame = true
-                } label: {
-                    Text("PLAY")
-                        .fontWeight(.semibold)
-                        .frame(height: 50)
-                        .padding(.horizontal, 30)
-                        .background {
-                            RoundedRectangle(cornerRadius: 25)
-                                .fill(Color.white)
-                        }
+                VStack(spacing: 30) {
+                    NavigationLink {
+                        CreateGameView()
+                    } label: {
+                        Text("Create Game")
+                            .fontWeight(.semibold)
+                            .frame(height: 50)
+                            .padding(.horizontal, 30)
+                            .background {
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(Color.white)
+                            }
+                    }
+                    NavigationLink {
+                        CreateGameView()
+                    } label: {
+                        Text("Join Game")
+                            .fontWeight(.semibold)
+                            .frame(height: 50)
+                            .padding(.horizontal, 30)
+                            .background {
+                                RoundedRectangle(cornerRadius: 25)
+                                    .fill(Color.white)
+                            }
+                    }
                 }
             }
     }
 }
 
 #Preview {
-    MenuView(matchManager: MatchManager())
+    MenuView().environmentObject(MatchManager())
 }
