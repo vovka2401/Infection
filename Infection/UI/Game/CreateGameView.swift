@@ -8,7 +8,7 @@ struct CreateGameView: View {
     
     init(
         settings: GameSettings = GameSettings(),
-        maps: [Map] = [Map.testMap1, Map.testMap2],
+        maps: [Map] = Map.rectangleMaps + Map.hexagonMaps,
         selectedRoomState: RoomState = RoomState.settings
     ) {
         self.settings = settings
@@ -41,35 +41,34 @@ struct CreateGameView: View {
             createRoomButton
         }
         .ignoresSafeArea()
-        .background(Color.indigo)
+        .background(.yellow.opacity(0.8))
     }
     
     var modeView: some View {
-        ScrollView(.vertical, showsIndicators: false) {
+//        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 20) {
-                ForEach(CellForm.allCases, id: \.rawValue) { form in
-                    Button {
-                    } label: {
-                        switch form {
-                        case .triangle:
-                            Triangle()
-                                .fill(Color.yellow)
-                                .frame(width: Screen.width * 0.6, height: Screen.width * 0.6)
-                        case .rectangle:
-                            Rectangle()
-                                .fill(Color.yellow)
-                                .frame(width: Screen.width * 0.6, height: Screen.width * 0.6)
-                        case .hexagon:
-                            Hexagon()
-                                .fill(Color.yellow)
-                                .frame(width: Screen.width * 0.6, height: Screen.width * 0.6)
-                        }
-                    }
-                }
+                Spacer()
+//                ForEach(CellForm.allCases, id: \.rawValue) { form in
+//                    Button {
+//                        selectedCellForm = form
+//                        switch form {
+//                        case .triangle: break
+//                        case .rectangle:
+//                            maps = Map.rectangleMaps
+//                        case .hexagon:
+//                            maps = Map.hexagonMaps
+//                        }
+//                        selectedMap = maps[0]
+//                    } label: {
+//                        CellShape(form: form)
+//                            .fill(Color.yellow)
+//                            .frame(width: Screen.width * 0.6, height: Screen.width * 0.6)
+//                    }
+//                }
             }
-            .padding(.vertical, 20)
-        }
-        .frame(width: Screen.width)
+//            .padding(.vertical, 20)
+//        }
+//        .frame(width: Screen.width)
     }
     
     var mapView: some View {
@@ -83,8 +82,10 @@ struct CreateGameView: View {
             } onDecrement: {
                 settings.countOfStepsPerTurn = max(settings.countOfStepsPerTurn - 1, 1)
             }
-//            .background(Color.cyan)
+            .font(.title)
+            .padding(.top, 10)
             Toggle("Fog of war", isOn: $settings.isFogOfWarEnabled)
+                .font(.title)
             Spacer()
         }
         .padding(.horizontal, 10)

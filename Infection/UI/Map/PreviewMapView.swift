@@ -10,7 +10,7 @@ struct PreviewMapView: View {
             .frame(width: map.size.width * 50, height: map.size.height * 50)
             .overlay {
                 ForEach(map.cells, id: \.coordinate) { cell in
-                    CellView(cell: cell, isAvailable: false, action: { _ in })
+                    CellView(cell: cell, isAvailable: false, isFogged: false, action: { _ in })
                         .position(
                             x: 25 + CGFloat(cell.coordinate.x * 50), y: 25 + CGFloat(cell.coordinate.y * 50)
                         )

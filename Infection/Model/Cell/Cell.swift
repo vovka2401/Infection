@@ -31,13 +31,21 @@ class Cell: ObservableObject, Equatable {
         }
     }
 
+    // TODO: make it work with boundaries
     func isBoundaryTo(_ other: Cell, obstructions: [Obstruction] = []) -> Bool {
-        !obstructions.contains(
-            where: {
-                ($0.coordinates.0 + $0.coordinates.1) == other.coordinate + self.coordinate
+        if form == .rectangle {
+            return !obstructions.contains(
+                where: {
+                    ($0.coordinates.0 + $0.coordinates.1) == other.coordinate + self.coordinate
                     + CellCoordinate(x: 1, y: 1)
-            }
-        ) && coordinate.isBoundaryTo(other.coordinate)
+                }
+            ) && coordinate.isBoundaryTo(other.coordinate)
+        } else if form == .hexagon {
+            return !obstructions.contains(
+                where: { abs(($0.coordinates.0 + $0.coordinates.1).distance(to: other.coordinate + self.coordinate + CellCoordinate(x: 1, y: 1))) < 0.01 }
+            ) && coordinate.isBoundaryTo(other.coordinate)
+        }
+        return false
     }
 
     static func == (lhs: Cell, rhs: Cell) -> Bool {
@@ -47,6 +55,6 @@ class Cell: ObservableObject, Equatable {
 
 extension Cell: Copyable {
     func copy() -> Cell {
-        Cell(coordinate: coordinate, type: type)
+        Cell(coordinate: coordinate, form: form, type: type)
     }
 }

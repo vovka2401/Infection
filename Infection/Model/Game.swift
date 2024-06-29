@@ -7,22 +7,24 @@ class Game: ObservableObject {
     @Published var foggedCells: [Cell] = []
     @Published var settings: GameSettings
     let players: [Player]
+    let defaultMap: Map
     var currentTurn: Turn
 
     init(map: Map, players: [Player], currentTurn: Turn, settings: GameSettings) {
         self.map = map
+        self.defaultMap = map.copy()
         self.players = players
         self.currentTurn = currentTurn
         self.settings = settings
-        updateAvailableCells()
+        updateCells()
     }
 
     func restart() {
         isOver = false
-        map = Map.testMap1
-//        map.reset()
+        map = defaultMap.copy()
+        availableCells.removeAll()
         currentTurn = Turn(player: players[0])
-        updateAvailableCells()
+        updateCells()
     }
 
     func infectCell(_ cell: Cell) {
@@ -41,7 +43,7 @@ class Game: ObservableObject {
         if currentTurn.step == settings.countOfStepsPerTurn + 1 {
             selectNextPlayer()
         }
-        updateAvailableCells()
+        updateCells()
         if availableCells.isEmpty {
             isOver = true
         }
@@ -53,12 +55,16 @@ class Game: ObservableObject {
             currentTurn = Turn(player: players[nextPlayerIndex])
         }
     }
+    
+    func updateCells() {
+        updateAvailableCells()
+        updateFoggedCells()
+        objectWillChange.send()
+        map.objectWillChange.send()
+    }
 
     func updateAvailableCells() {
         availableCells = map.cells.filter { isCellAvailable(cell: $0) }
-        objectWillChange.send()
-        map.objectWillChange.send()
-        print(availableCells.map({ $0.coordinate }))
     }
 
     // TODO: we can look for either active clusters or active cells, which are connected to portals
@@ -86,6 +92,27 @@ class Game: ObservableObject {
             }
         }
         return false
+    }
+    
+    func updateFoggedCells() {
+        guard settings.isFogOfWarEnabled else { return }
+        foggedCells = map.cells.filter { isCellFogged(cell: $0) }
+    }
+
+    func isCellFogged(cell: Cell, minimalDistance: Double = 3, arePortalsIncluded: Bool = true) -> Bool {
+        if arePortalsIncluded {
+            for boundaryPortal in map.cells where cell.isBoundaryTo(boundaryPortal) {
+                if let connectedPortal = getConnectedPortal(of: boundaryPortal), !isCellFogged(cell: connectedPortal, minimalDistance: minimalDistance - 1, arePortalsIncluded: false) {
+                    return false
+                }
+            }
+        }
+        for infectedCell in map.cells where infectedCell.getPlayerWithPlayerCellType().player == currentTurn.player {
+            if cell.coordinate.distance(to: infectedCell.coordinate) <= minimalDistance {
+                return false
+            }
+        }
+        return true
     }
 
     func isClusterActiveThroughPortals(_ cluster: Cluster, excluding portals: [Cell] = []) -> Bool {
@@ -188,9 +215,19 @@ class Game: ObservableObject {
                     map.clusters.removeAll(where: { $0 == edgeCluster })
                 }
                 generalCluster.addCell(cell)
+                for boundaryCell in map.cells
+                    where boundaryCell.isBoundaryTo(cell, obstructions: map.obstructions)
+                    && boundaryCell.type == .player(currentTurn.player, .temporary) {
+                        generalCluster.addCell(boundaryCell)
+                }
                 map.clusters.append(generalCluster)
             } else {
                 edgeClusters.first?.addCell(cell)
+                for boundaryCell in map.cells
+                    where boundaryCell.isBoundaryTo(cell, obstructions: map.obstructions)
+                    && boundaryCell.type == .player(currentTurn.player, .temporary) {
+                        edgeClusters.first?.addCell(boundaryCell)
+                }
             }
         } else if cell.type == .player(currentTurn.player, .temporary) {
             for edgeCluster in edgeClusters {

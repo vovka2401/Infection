@@ -1,27 +1,16 @@
 import SwiftUI
 
-struct Triangle: Shape {
+struct CellShape: Shape {
+    let form: CellForm
+
     func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-
-        return path
-    }
-}
-
-struct Hexagon: Shape {
-    func path(in rect: CGRect) -> Path {
-        var path = Path()
-
-        path.move(to: CGPoint(x: rect.midX, y: rect.minY))
-        path.addLine(to: CGPoint(x: rect.minX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.maxX, y: rect.maxY))
-        path.addLine(to: CGPoint(x: rect.midX, y: rect.minY))
-
-        return path
+        switch form {
+        case .triangle:
+            Triangle().path(in: rect)
+        case .rectangle:
+            Rectangle().path(in: rect)
+        case .hexagon:
+            Hexagon().path(in: rect)
+        }
     }
 }

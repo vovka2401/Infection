@@ -15,10 +15,15 @@ struct MapView: View {
             .frame(width: game.map.size.width * 50, height: game.map.size.height * 50)
             .overlay {
                 ForEach(game.map.cells, id: \.coordinate) { cell in
-                    CellView(cell: cell, isAvailable: game.availableCells.contains(cell), action: action)
-                        .position(
-                            x: 25 + CGFloat(cell.coordinate.x * 50), y: 25 + CGFloat(cell.coordinate.y * 50)
-                        )
+                    CellView(
+                        cell: cell,
+                        isAvailable: game.availableCells.contains(cell),
+                        isFogged: game.foggedCells.contains(cell),
+                        action: action
+                    )
+                    .position(
+                        x: 25 + CGFloat(cell.coordinate.x * 50), y: 25 + CGFloat(cell.coordinate.y * 50)
+                    )
                 }
             }
             .overlay {
