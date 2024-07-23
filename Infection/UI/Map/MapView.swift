@@ -1,24 +1,24 @@
 import SwiftUI
 
 struct MapView: View {
-    @ObservedObject var game: Game
+    @ObservedObject var gameViewModel: GameViewModel
     let action: (Cell) -> Void
-    
-    init(game: Game, action: @escaping (Cell) -> Void = { _ in }) {
-        self.game = game
+
+    init(gameViewModel: GameViewModel, action: @escaping (Cell) -> Void = { _ in }) {
+        self.gameViewModel = gameViewModel
         self.action = action
     }
 
     var body: some View {
         Rectangle()
             .fill(Color(red: 0.1, green: 0.1, blue: 0.2))
-            .frame(width: game.map.size.width * 50, height: game.map.size.height * 50)
+            .frame(width: gameViewModel.game.map.size.width * 50, height: gameViewModel.game.map.size.height * 50)
             .overlay {
-                ForEach(game.map.cells, id: \.coordinate) { cell in
+                ForEach(gameViewModel.game.map.cells, id: \.coordinate) { cell in
                     CellView(
                         cell: cell,
-                        isAvailable: game.availableCells.contains(cell),
-                        isFogged: game.foggedCells.contains(cell),
+                        isAvailable: gameViewModel.availableCells.contains(cell),
+                        isFogged: gameViewModel.foggedCells.contains(cell),
                         action: action
                     )
                     .position(
@@ -27,7 +27,7 @@ struct MapView: View {
                 }
             }
             .overlay {
-                ForEach(game.map.obstructions, id: \.id) { obstruction in
+                ForEach(gameViewModel.game.map.obstructions, id: \.id) { obstruction in
                     ObstructionView(obstruction: obstruction)
                         .position(
                             x: CGFloat((obstruction.coordinates.0.x + obstruction.coordinates.1.x) * 25),

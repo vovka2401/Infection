@@ -9,16 +9,17 @@ struct GifImageView: UIViewRepresentable {
     }
 
     func makeUIView(context _: Context) -> WKWebView {
-        let webview = WKWebView()
+        let webView = WKWebView()
         let url = Bundle.main.url(forResource: name, withExtension: "gif")!
         let data = try! Data(contentsOf: url)
-        webview.load(
+        webView.load(
             data,
             mimeType: "image/gif",
             characterEncodingName: "UTF-8",
             baseURL: url.deletingLastPathComponent()
         )
-        return webview
+        webView.scrollView.isScrollEnabled = false
+        return webView
     }
 
     func updateUIView(_ uiView: WKWebView, context _: Context) {

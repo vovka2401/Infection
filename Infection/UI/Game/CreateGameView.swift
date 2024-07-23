@@ -1,53 +1,54 @@
 import SwiftUI
 
 struct CreateGameView: View {
-    @State var settings = GameSettings()
+    @EnvironmentObject var menuViewModel: MenuViewModel
+    @State var settings: GameSettings
     @State var selectedMap: Map
-    @State var maps: [Map]
-    @State private var selectedRoomState = RoomState.settings
-    
-    init(
-        settings: GameSettings = GameSettings(),
-        maps: [Map] = Map.rectangleMaps + Map.hexagonMaps,
-        selectedRoomState: RoomState = RoomState.settings
-    ) {
-        self.settings = settings
-        self.selectedMap = maps[0]
-        self.maps = maps
-        self.selectedRoomState = selectedRoomState
+    @State var selectedRoomState = RoomState.settings
+    let maps = Map.rectangleMaps + Map.hexagonMaps
+
+    init(isLocalGame: Bool = false) {
+        _selectedMap = State(initialValue: maps[0])
+        _settings = State(initialValue: GameSettings(isLocalGame: isLocalGame))
     }
-    
+
     var body: some View {
-        VStack(spacing: 0) {
-            Picker("View State", selection: $selectedRoomState) {
-                Text("Mode").tag(RoomState.mode)
-                Text("Map").tag(RoomState.map)
-                Text("Settings").tag(RoomState.settings)
+        ZStack {
+            Image("background1")
+                .resizable()
+                .frame(size: Screen.size)
+                .blur(radius: 3)
+            VStack(spacing: 0) {
+                Rectangle()
+                    .fill(Color.white.opacity(0.7))
+                    .frame(width: Screen.width, height: SafeAreaInsets.top + 70)
+                    .overlay {
+                        Picker("View State", selection: $selectedRoomState) {
+                            Text("Mode").tag(RoomState.mode)
+                            Text("Map").tag(RoomState.map)
+                            Text("Settings").tag(RoomState.settings)
+                        }
+                        .foregroundStyle(Color.white)
+                        .pickerStyle(SegmentedPickerStyle())
+                        .frame(width: Screen.width - 40)
+                        .padding(.top, SafeAreaInsets.top + 20)
+                    }
+                switch selectedRoomState {
+                case .mode: modeView
+                case .map: mapView
+                case .settings: settingsView
+                }
+                createGameButton
             }
-            .background(
-                RoundedRectangle(cornerRadius: 7)
-                    .fill(.orange)
-            )
-            .foregroundStyle(Color.white)
-            .pickerStyle(SegmentedPickerStyle())
-            .padding()
-            .padding(.top, SafeAreaInsets.top + 20)
-            .background(Color.blue)
-            switch selectedRoomState {
-            case .mode: modeView
-            case .map: mapView
-            case .settings: settingsView
-            }
-            createRoomButton
         }
         .ignoresSafeArea()
-        .background(.yellow.opacity(0.8))
+        .navigationBarBackButtonHidden(true)
     }
-    
+
     var modeView: some View {
 //        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 20) {
-                Spacer()
+        VStack(spacing: 20) {
+            Spacer()
 //                ForEach(CellForm.allCases, id: \.rawValue) { form in
 //                    Button {
 //                        selectedCellForm = form
@@ -65,57 +66,104 @@ struct CreateGameView: View {
 //                            .frame(width: Screen.width * 0.6, height: Screen.width * 0.6)
 //                    }
 //                }
-            }
+        }
 //            .padding(.vertical, 20)
 //        }
 //        .frame(width: Screen.width)
     }
-    
+
     var mapView: some View {
-        MapPickerView(selectedMap: $selectedMap, maps: $maps)
+        MapPickerView(selectedMap: $selectedMap, maps: maps)
     }
-    
+
     var settingsView: some View {
         VStack(spacing: 20) {
-            Stepper("Steps: \(settings.countOfStepsPerTurn)") {
-                settings.countOfStepsPerTurn = min(settings.countOfStepsPerTurn + 1, 8)
-            } onDecrement: {
-                settings.countOfStepsPerTurn = max(settings.countOfStepsPerTurn - 1, 1)
+            VStack {
+                if !settings.isLocalGame {
+                    HStack {
+                        settingView(title: "Private game", value: $settings.isGamePrivate)
+                        settingView(title: "Fog of war", value: $settings.isFogOfWarEnabled)
+                    }
+                    .padding(.top, 10)
+                }
+                VStack {
+                    Text("Steps per turn: \(settings.countOfStepsPerTurn)")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundStyle(.black)
+                        .frame(width: Screen.width, alignment: .leading)
+                        .padding(.leading, 20)
+                    Slider(
+                        value: Binding<Double>(
+                            get: { Double(settings.countOfStepsPerTurn) },
+                            set: { settings.countOfStepsPerTurn = Int($0) }
+                        ),
+                        in: 1 ... 8,
+                        step: 1
+                    )
+                }
+                .frame(width: Screen.width - 30)
+                .padding(.vertical, 10)
+                .background {
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white.opacity(0.7))
+                        .frame(width: Screen.width - 10)
+                }
             }
-            .font(.title)
-            .padding(.top, 10)
-            Toggle("Fog of war", isOn: $settings.isFogOfWarEnabled)
-                .font(.title)
             Spacer()
         }
         .padding(.horizontal, 10)
     }
-    
-    var createRoomButton: some View {
-        NavigationLink {
-            GameView(game: createGame())
+
+    var createGameButton: some View {
+        Button {
+            startGame()
         } label: {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.orange)
                 .frame(width: 150, height: 60)
                 .overlay {
-                    Text("Create Room")
+                    Text("Create Game")
                         .bold()
+                        .foregroundStyle(.white)
                 }
                 .frame(width: Screen.width)
                 .padding(.vertical, 20)
-                .background(Color.blue)
+                .background(Color.white.opacity(0.7))
         }
     }
 
-    private func createGame() -> Game {
-        let mapCopy = selectedMap.copy()
-        return Game(
-            map: mapCopy,
-            players: [Player.testPlayer1, Player.testPlayer2],
-            currentTurn: Turn(player: Player.testPlayer1),
-            settings: settings
-        )
+    func settingView(title: String, value: Binding<Bool>) -> some View {
+        Button {
+            value.wrappedValue.toggle()
+        } label: {
+            RoundedRectangle(cornerRadius: 5)
+                .fill(Color.white.opacity(0.7))
+                .frame(width: Screen.width / 5, height: Screen.width / 5)
+                .overlay {
+                    Text(title)
+                        .foregroundStyle(Color.black)
+                }
+                .overlay {
+                    if !value.wrappedValue {
+                        RoundedRectangle(cornerRadius: 5)
+                            .fill(Color.black.opacity(0.4))
+                    }
+                }
+        }
+    }
+
+    private func startGame() {
+        let game = Game(map: selectedMap)
+        settings.maxCountOfPlayers = selectedMap.getCountOfPlayers()
+        menuViewModel.gameCenterManager.isGameCreator = true
+        menuViewModel.gameCenterManager.gameViewModel = GameViewModel(game: game, settings: settings)
+        if settings.isLocalGame {
+            menuViewModel.gameCenterManager.gameViewModel.setup()
+            Navigator.shared.pushGameView()
+        } else {
+            menuViewModel.gameCenterManager.presentMatchmaker()
+        }
     }
 }
 

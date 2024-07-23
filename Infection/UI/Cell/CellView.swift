@@ -1,30 +1,20 @@
 import SwiftUI
 
 struct CellView: View {
-    @StateObject var cell: Cell
-    var isAvailable: Bool
-    var isFogged: Bool
-    let action: (Cell) -> Void
-    
-//    init(cell: Cell, isAvailable: Bool, action: @escaping (Cell) -> Void) {
-//        self._cell = StateObject(wrappedValue: cell)
-//        self.isAvailable = isAvailable
-//        self.action = action
-//    }
+    let cell: Cell
+    let isAvailable: Bool
+    let isFogged: Bool
+    @State var action: (Cell) -> Void
 
-    // TODO: fix right size
     var body: some View {
         if let portalNumber = cell.type.portalNumber() {
             GifImageView("portal\(portalNumber)")
                 .frame(width: 46, height: 46)
                 .disabled(true)
         } else if isFogged {
-//            CellShape(form: cell.form)
-//                .fill(Color(white: 0.1).opacity(0.8))
-//                .frame(width: 45, height: 45)
-            GifImageView("fog")
-                .frame(width: 46, height: 46)
-                .disabled(true)
+            CellShape(form: cell.form)
+                .fill(Color(white: 0.2))
+                .frame(width: 45, height: 45)
         } else {
             let (player, playerCellType) = cell.getPlayerWithPlayerCellType()
             CellShape(form: cell.form)
