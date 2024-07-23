@@ -2,6 +2,7 @@ import SwiftUI
 
 struct CreateGameView: View {
     @EnvironmentObject var menuViewModel: MenuViewModel
+    @EnvironmentObject var navigator: Navigator
     @State var settings: GameSettings
     @State var selectedMap: Map
     @State var selectedRoomState = RoomState.settings
@@ -14,24 +15,43 @@ struct CreateGameView: View {
 
     var body: some View {
         ZStack {
-            Image("background1")
-                .resizable()
+            Color.orange
                 .frame(size: Screen.size)
-                .blur(radius: 3)
             VStack(spacing: 0) {
                 Rectangle()
                     .fill(Color.white.opacity(0.7))
                     .frame(width: Screen.width, height: SafeAreaInsets.top + 70)
                     .overlay {
-                        Picker("View State", selection: $selectedRoomState) {
-                            Text("Mode").tag(RoomState.mode)
-                            Text("Map").tag(RoomState.map)
-                            Text("Settings").tag(RoomState.settings)
+                        HStack {
+                            Button {
+                                navigator.dismiss()
+                            } label: {
+                                RoundedRectangle(cornerRadius: 5)
+                                    .fill(.white)
+                                    .frame(width: 30, height: 30)
+                                    .overlay {
+                                        Image(systemName: "chevron.backward")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .scaleEffect(x: 0.6, y: 0.6)
+                                    }
+                            }
+                            .padding(.leading, 20)
+                            Spacer()
                         }
-                        .foregroundStyle(Color.white)
-                        .pickerStyle(SegmentedPickerStyle())
-                        .frame(width: Screen.width - 40)
-                        .padding(.top, SafeAreaInsets.top + 20)
+                        .padding(.top, SafeAreaInsets.hasTop ? 0 : 15)
+                        .padding(.bottom, 10)
+                        VStack(spacing: 0) {
+                            Picker("View State", selection: $selectedRoomState) {
+                                Text("Mode").tag(RoomState.mode)
+                                Text("Map").tag(RoomState.map)
+                                Text("Settings").tag(RoomState.settings)
+                            }
+                            .foregroundStyle(Color.white)
+                            .pickerStyle(SegmentedPickerStyle())
+                            .frame(width: Screen.width - 40)
+                            .padding(.top, SafeAreaInsets.top + 20)
+                        }
                     }
                 switch selectedRoomState {
                 case .mode: modeView
@@ -77,7 +97,7 @@ struct CreateGameView: View {
     }
 
     var settingsView: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 0) {
             VStack {
                 if !settings.isLocalGame {
                     HStack {
@@ -109,6 +129,7 @@ struct CreateGameView: View {
                         .fill(Color.white.opacity(0.7))
                         .frame(width: Screen.width - 10)
                 }
+                .padding(.top, 10)
             }
             Spacer()
         }
