@@ -1,17 +1,2 @@
 /.swiftformat
 /.swiftlint
-/.gitignore
-# Xcode
-#
-build/
-DerivedData/
-*.xcworkspace
-xcuserdata/
-*.xccheckout
-*.xcscmblueprint
-
-# Swift Package Manager
-#
-.build/
-.package/
-Package.resolved
