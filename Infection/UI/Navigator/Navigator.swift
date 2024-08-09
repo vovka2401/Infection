@@ -19,6 +19,7 @@ class Navigator: ObservableObject {
     }
 
     func dismiss(_ completion: (() -> Void)? = nil) {
+        guard !path.isEmpty else { return }
         path.removeLast()
         completion?()
         objectWillChange.send()

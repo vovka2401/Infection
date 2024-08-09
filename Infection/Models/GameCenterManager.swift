@@ -14,8 +14,8 @@ final class GameCenterManager: NSObject, GKLocalPlayerListener, ObservableObject
     @Published var isInGame = false
     @Published var isAuthenticated = GKLocalPlayer.local.isAuthenticated
     weak var delegate: GameCenterManagerDelegate?
+    private let inviteMessage = L10n.inviteMessage.text
     private var matchmakerViewController: GKMatchmakerViewController?
-    private let inviteMessage = "Let's play Infection!"
     var rootViewController: UIViewController? = {
         let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene
         return windowScene?.windows.first?.rootViewController
@@ -48,20 +48,21 @@ final class GameCenterManager: NSObject, GKLocalPlayerListener, ObservableObject
             controller = GKMatchmakerViewController(matchRequest: createRequest())
         }
         controller?.matchmakerDelegate = self
-        if gameViewModel?.settings.isGamePrivate == true {
+        if gameViewModel?.game.settings.isGamePrivate == true {
             controller?.matchmakingMode = .inviteOnly
+        } else if !isGameCreator {
+            controller?.matchmakingMode = .automatchOnly
         }
         return controller
     }
 
     private func createRequest() -> GKMatchRequest {
         let request = GKMatchRequest()
-        request.minPlayers = gameViewModel.settings.maxCountOfPlayers
-        request.maxPlayers = gameViewModel.settings.maxCountOfPlayers
+        request.minPlayers = gameViewModel.game.settings.maxCountOfPlayers
+        request.maxPlayers = gameViewModel.game.settings.maxCountOfPlayers
         request.inviteMessage = inviteMessage
-        request
-            .playerAttributes = isGameCreator ? 0xFFFF_FFFF - UInt32(gameViewModel.settings.maxCountOfPlayers - 1) *
-            0x0000_000F : 0x0000_000F
+        request.playerAttributes = isGameCreator ?
+            0xFFFF_FFFF - UInt32(gameViewModel.game.settings.maxCountOfPlayers - 1) * 0x0000_000F : 0x0000_000F
         return request
     }
 }
@@ -78,11 +79,45 @@ extension GameCenterManager: GKMatchDelegate {
 
     func match(_ match: GKMatch, didReceive data: Data, fromRemotePlayer _: GKPlayer) {
         do {
+            guard !isInGame else { return }
             let gameViewModel = try JSONDecoder().decode(GameViewModel.self, from: data)
             self.gameViewModel = gameViewModel
             delegate?.presentGame(match: match)
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
         } catch {
-            print("Failed to receive data: \(error.localizedDescription)")
+            print("error: ", error)
+        }
+    }
+    
+    func match(_ match: GKMatch, didReceive data: Data, forRecipient recipient: GKPlayer, fromRemotePlayer player: GKPlayer) {
+        do {
+            guard !isInGame else { return }
+            let gameViewModel = try JSONDecoder().decode(GameViewModel.self, from: data)
+            self.gameViewModel = gameViewModel
+            delegate?.presentGame(match: match)
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch {
+            print("error: ", error)
         }
     }
 }
@@ -90,12 +125,13 @@ extension GameCenterManager: GKMatchDelegate {
 extension GameCenterManager: GKMatchmakerViewControllerDelegate {
     func matchmakerViewController(_ viewController: GKMatchmakerViewController, didFind match: GKMatch) {
         match.delegate = self
+        viewController.matchmakerDelegate = self
         viewController.dismiss(animated: true)
+        if isGameCreator {
+            self.sendData(match: match)
+        }
         if gameViewModel != nil {
             delegate?.presentGame(match: match)
-        }
-        if isGameCreator {
-            sendData(match: match)
         }
     }
 

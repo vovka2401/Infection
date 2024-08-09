@@ -2,8 +2,24 @@ import SwiftUI
 
 struct PreviewMapView: View {
     let map: Map
+    let winMode: GameWinMode
     let side: CGFloat
-
+    
+    init(map: Map, winMode: GameWinMode, side: CGFloat) {
+        var map = map
+        if winMode == .infectMoreCells {
+            for cell in map.cells {
+                let (player, playerCellType) = cell.getPlayerWithPlayerCellType()
+                if playerCellType == .base, let player {
+                    map.cells[cell.coordinate]?.type = .player(player, .temporary)
+                }
+            }
+        }
+        self.map = map
+        self.winMode = winMode
+        self.side = side
+    }
+    
     var body: some View {
         Rectangle()
             .fill(Color(red: 0.1, green: 0.1, blue: 0.2))

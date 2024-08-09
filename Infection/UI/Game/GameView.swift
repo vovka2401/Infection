@@ -4,61 +4,44 @@ struct GameView: View {
     @ObservedObject var gameViewModel: GameViewModel
 
     var body: some View {
-        VStack {
-            HStack {
-                Button {
-                    gameViewModel.dismiss()
-                } label: {
-                    RoundedRectangle(cornerRadius: 5)
-                        .fill(.white)
-                        .frame(width: 30, height: 30)
-                        .overlay {
-                            Image(systemName: "chevron.backward")
-                                .resizable()
-                                .scaledToFit()
-                                .scaleEffect(x: 0.6, y: 0.6)
-                        }
-                }
-                .padding(.leading, 20)
+        ZStack {
+            VStack {
+                Spacer()
+                Text(gameViewModel.game.currentTurn.player.name)
+                    .font(.title)
+                    .bold()
+                    .animation(.easeInOut, value: gameViewModel.game.currentTurn.step)
+                stepsScale
+                Spacer()
+                map
                 Spacer()
             }
-            .padding(.top, SafeAreaInsets.top + 15)
-            Spacer()
-            Text(gameViewModel.game.currentTurn.player.name)
-                .font(.title)
-                .bold()
-                .animation(.easeInOut, value: gameViewModel.game.currentTurn.step)
-            stepsScale
-            Spacer()
-            map
-            Spacer()
-        }
-        .animation(.easeInOut(duration: 2), value: gameViewModel.game.isOver)
-        .disabled(gameViewModel.game.isOver)
-        .overlay {
-            if gameViewModel.game.isOver {
-                gameOverView
+            .disabled(gameViewModel.game.isOver)
+            .overlay {
+                if gameViewModel.game.isOver {
+                    gameOverView
+                }
+            }
+            VStack {
+                NavigationBar(dismiss: gameViewModel.dismiss)
+                Spacer()
             }
         }
+        .animation(.easeInOut(duration: 1), value: gameViewModel.game.isOver)
         .ignoresSafeArea()
         .background(gameViewModel.game.currentTurn.player.color)
         .animation(.easeInOut, value: gameViewModel.game.currentTurn.player.color)
-        .onAppear {
-            gameViewModel.updateCells()
-        }
         .navigationBarBackButtonHidden()
     }
 
     var stepsScale: some View {
-        HStack(spacing: 5) {
-            ForEach(0 ..< gameViewModel.settings.countOfStepsPerTurn) { step in
-                Rectangle()
-                    .fill(step < gameViewModel.game.currentTurn.step ? Color.clear : Color.black.opacity(0.5))
-                    .border(Color.white, width: 4)
-                    .frame(width: Screen.width / 10, height: Screen.width / 20)
-            }
-        }
-        .animation(.easeInOut, value: gameViewModel.game.currentTurn.step)
+        ScaleView(
+            selectedStepsCount: $gameViewModel.game.currentTurn.step,
+            range: 1 ... gameViewModel.game.settings.countOfStepsPerTurn,
+            color: Color.clear,
+            strokeColor: Color.white,
+            isDisabled: true
+        )
     }
 
     var map: some View {
@@ -69,20 +52,21 @@ struct GameView: View {
     }
 
     var gameOverView: some View {
-        Color.white.opacity(0.7)
+        Color.white.opacity(0.9)
             .overlay {
                 VStack {
-                    Text("GAME OVER")
+                    Text(gameViewModel.game.winner != nil ? "\(L10n.winner.text): \(gameViewModel.game.winner!.name)" : L10n.draw.text)
                         .font(.largeTitle)
                         .fontWeight(.bold)
-                        .foregroundStyle(Color.blue)
+                        .foregroundStyle(Color.orange)
+                        .shadow(color: .orange.opacity(0.1), radius: 1)
                         .padding(.bottom, 30)
-                    Button {
-                        gameViewModel.restart()
-                    } label: {
-                        Text("RESTART")
+                    Button(action: gameViewModel.restart) {
+                        Text(L10n.restart.text)
                             .font(.largeTitle)
                             .fontWeight(.bold)
+                            .foregroundStyle(Color.orange)
+                            .shadow(color: .orange.opacity(0.1), radius: 1)
                     }
                 }
             }

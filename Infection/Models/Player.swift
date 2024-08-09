@@ -45,9 +45,20 @@ extension Player {
     static let testPlayer3 = Player(name: "Player 3", color: .green)
     static let testPlayer4 = Player(name: "Player 4", color: .pink)
     static let testPlayer5 = Player(name: "Player 5", color: .mint)
+    static let testPlayer6 = Player(name: "Player 6", color: .orange)
+    static let testPlayer7 = Player(name: "Player 7", color: .red)
+    static let testPlayer8 = Player(name: "Player 8", color: .brown)
 }
 
 enum PlayerCellType: Codable {
     case temporary
     case constant
+    case base
+    
+    var isActive: Bool {
+        switch self {
+        case .temporary, .base: true
+        default: false
+        }
+    }
 }

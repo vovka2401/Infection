@@ -1,0 +1,40 @@
+"invite_message" = "让我们玩感染！";
+
+"mode_title1" = "感染更多细胞";
+
+"mode_title2" = "摧毁基地";
+
+"mode_description1" = "在这种模式下，您必须感染比对手更多的细胞";
+
+"mode_description2" = "在这种模式下，您必须摧毁对手的基础，以成为最后一个生存的基地";
+
+"game_over" = "游戏结束";
+
+"restart" = "重新开始";
+
+"private_game" = "私人游戏";
+
+"fog_of_war" = "战争迷雾";
+
+"random_steps" = "随机步骤";
+
+"steps_per_turn" = "每回合的步骤";
+
+"count_of_players" = "球员计数";
+
+"create_game" = "创建游戏";
+
+"join_game" = "加入游戏";
+
+"local_game" = "本地游戏";
+
+"mode" = "模式";
+
+"map" = "地图";
+
+"settings" = "设置";
+
+"winner" = "优胜者";
+
+"draw" = "画";
+

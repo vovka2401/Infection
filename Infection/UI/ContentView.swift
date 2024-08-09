@@ -10,23 +10,26 @@ struct ContentView: View {
                 .environmentObject(menuViewModel)
                 .environmentObject(navigator)
                 .navigationDestination(for: NavigationDestination.self) { value in
-                    if value == .createGameView(isLocalGame: false) {
-                        CreateGameView(isLocalGame: false)
+                    switch value {
+                    case .createGameView(isLocalGame: let isLocalGame):
+                        CreateGameView(isLocalGame: isLocalGame)
                             .environmentObject(menuViewModel)
                             .environmentObject(navigator)
-                    } else if value == .createGameView(isLocalGame: true) {
-                        CreateGameView(isLocalGame: true)
-                            .environmentObject(menuViewModel)
-                            .environmentObject(navigator)
-                    } else if value == .gameView {
+                    case .gameView:
                         GameView(gameViewModel: menuViewModel.gameCenterManager.gameViewModel)
-                            .environmentObject(menuViewModel)
-                            .environmentObject(navigator)
-                    } else if value == .joinGameView {
+                    case .joinGameView:
                         JoinGameView()
                             .environmentObject(menuViewModel)
                             .environmentObject(navigator)
                     }
+                }
+                .overlay {
+//                    if !menuViewModel.wasTutorialShown {
+//                        TutorialView()
+//                            .environmentObject(menuViewModel)
+//                            .transition(.opacity)
+//                            .animation(.easeInOut, value: menuViewModel.wasTutorialShown)
+//                    }
                 }
         }
         .onAppear {

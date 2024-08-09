@@ -17,7 +17,7 @@ struct Cluster: Identifiable {
         case let .player(_, playerCellType):
             if playerCellType == .constant {
                 addConstantCell(cell)
-            } else {
+            } else if playerCellType.isActive {
                 addTemporaryCell(cell)
             }
         case .portal:

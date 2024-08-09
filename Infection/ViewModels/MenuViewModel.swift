@@ -4,6 +4,7 @@ import SwiftUI
 
 class MenuViewModel: ObservableObject {
     @Published var gameCenterManager: GameCenterManager!
+    @Published var wasTutorialShown = UserDefaults.standard.wasTutorialShown
 
     init() {
         gameCenterManager = GameCenterManager()
@@ -24,13 +25,13 @@ extension MenuViewModel: GameCenterManagerDelegate {
     }
 
     func presentMatchmaking(viewController: UIViewController?) {
-        guard !gameCenterManager.isInGame, let viewController,
-              let rootViewController = gameCenterManager.rootViewController else { return }
-        rootViewController.present(viewController, animated: true)
+        guard !gameCenterManager.isInGame, let viewController else { return }
+        gameCenterManager.rootViewController?.present(viewController, animated: true)
     }
 
     func presentGame(match: GKMatch) {
         guard !gameCenterManager.isInGame else { return }
+        sleep(1)
         gameCenterManager.gameViewModel.match = match
         gameCenterManager.gameViewModel.match?.delegate = gameCenterManager.gameViewModel
         gameCenterManager.gameViewModel.setup()

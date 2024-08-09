@@ -9,6 +9,8 @@ public enum L10n {
   public static let countOfPlayers = LocalizedString(lookupKey: "count_of_players")
   /// Create game
   public static let createGame = LocalizedString(lookupKey: "create_game")
+  /// Draw
+  public static let draw = LocalizedString(lookupKey: "draw")
   /// Fog of war
   public static let fogOfWar = LocalizedString(lookupKey: "fog_of_war")
   /// Game over
@@ -23,13 +25,13 @@ public enum L10n {
   public static let map = LocalizedString(lookupKey: "map")
   /// Mode
   public static let mode = LocalizedString(lookupKey: "mode")
-  /// In this mode you must infect cells to have more infected cells than your oponnents
+  /// In this mode you must infect more cells than your opponents
   public static let modeDescription1 = LocalizedString(lookupKey: "mode_description1")
-  /// In this mode you must destroy oponnents' bases to be the last one to survive
+  /// In this mode you must destroy opponents' bases to be the last one to survive
   public static let modeDescription2 = LocalizedString(lookupKey: "mode_description2")
   /// Infect More Cells
   public static let modeTitle1 = LocalizedString(lookupKey: "mode_title1")
-  /// Destroy Base
+  /// Destroy Bases
   public static let modeTitle2 = LocalizedString(lookupKey: "mode_title2")
   /// Private game
   public static let privateGame = LocalizedString(lookupKey: "private_game")
@@ -41,6 +43,8 @@ public enum L10n {
   public static let settings = LocalizedString(lookupKey: "settings")
   /// Steps per turn
   public static let stepsPerTurn = LocalizedString(lookupKey: "steps_per_turn")
+  /// Winner
+  public static let winner = LocalizedString(lookupKey: "winner")
 }
 
 // MARK: - Implementation Details

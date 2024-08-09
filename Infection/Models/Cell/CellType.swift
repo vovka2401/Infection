@@ -2,7 +2,6 @@ import Foundation
 
 enum CellType {
     case `default`
-    case none
     case portal(Int)
     case player(Player, PlayerCellType)
 
@@ -50,15 +49,13 @@ extension CellType: Codable {
             try container.encode(playerCellType, forKey: .associatedValue2)
         case .default:
             try container.encode("default", forKey: .rawValue)
-        case .none:
-            try container.encode("none", forKey: .rawValue)
         }
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        if let rawValue = try? values.decode(String.self, forKey: .rawValue) {
-            self = rawValue == "default" ? .default : .none
+        if let _ = try? values.decode(String.self, forKey: .rawValue) {
+            self = .default
         } else if let portalNumber = try? values.decode(Int.self, forKey: .associatedValue1) {
             self = .portal(portalNumber)
         } else if let player = try? values.decode(Player.self, forKey: .associatedValue1),

@@ -1,0 +1,38 @@
+"invite_message" = "¡Juguemos la infección!";
+
+"mode_title1" = "Infectar más células";
+
+"mode_title2" = "Destruir bases";
+
+"mode_description1" = "En este modo debes infectar más células que tus oponentes";
+
+"mode_description2" = "En este modo debes destruir las bases de los oponentes para ser el último en sobrevivir";
+
+"game_over" = "Juego terminado";
+
+"restart" = "Reanudar";
+
+"private_game" = "Juego privado";
+
+"fog_of_war" = "Niebla de la guerra";
+
+"random_steps" = "Pasos aleatorios";
+
+"steps_per_turn" = "Pasos por turno";
+
+"count_of_players" = "Cuenta de jugadores";
+
+"create_game" = "Crear juego";
+
+"join_game" = "Unete al juego";
+
+"local_game" = "Juego local";
+
+"mode" = "Modo";
+
+"map" = "Mapa";
+
+"settings" = "Ajustes";
+
+"draw" = "Dibujar";
+

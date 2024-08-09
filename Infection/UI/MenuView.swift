@@ -5,73 +5,54 @@ struct MenuView: View {
     @EnvironmentObject var navigator: Navigator
 
     var body: some View {
-        Image("background2")
-            .resizable()
-            .frame(size: Screen.size)
-            .overlay {
-                Color.white.opacity(0.25)
-                    .frame(size: Screen.size)
-            }
-            .ignoresSafeArea()
-            .overlay {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(.orange.opacity(0.8))
-                    .frame(width: 300, height: 300)
-                    .overlay {
-                        VStack(spacing: 30) {
-                            Button {
-                                navigator.pushCreateGameView(isLocalGame: false)
-                            } label: {
-                                Text("Create Game")
-                                    .fontWeight(.semibold)
-                                    .frame(height: 50)
-                                    .padding(.horizontal, 30)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .fill(Color.white)
-                                    }
-                                    .overlay {
-                                        if !menuViewModel.gameCenterManager.isAuthenticated {
-                                            RoundedRectangle(cornerRadius: 25)
-                                                .fill(Color.black.opacity(0.4))
-                                        }
-                                    }
-                            }
-                            .disabled(!menuViewModel.gameCenterManager.isAuthenticated)
-                            Button {
-                                navigator.pushJoinGameView()
-                            } label: {
-                                Text("Join Game")
-                                    .fontWeight(.semibold)
-                                    .frame(height: 50)
-                                    .padding(.horizontal, 30)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .fill(Color.white)
-                                    }
-                                    .overlay {
-                                        if !menuViewModel.gameCenterManager.isAuthenticated {
-                                            RoundedRectangle(cornerRadius: 25)
-                                                .fill(Color.black.opacity(0.4))
-                                        }
-                                    }
-                            }
-                            .disabled(!menuViewModel.gameCenterManager.isAuthenticated)
-                            Button {
-                                navigator.pushCreateGameView(isLocalGame: true)
-                            } label: {
-                                Text("Local Game")
-                                    .fontWeight(.semibold)
-                                    .frame(height: 50)
-                                    .padding(.horizontal, 30)
-                                    .background {
-                                        RoundedRectangle(cornerRadius: 25)
-                                            .fill(Color.white)
-                                    }
-                            }
-                            .animation(.easeInOut, value: menuViewModel.gameCenterManager.isAuthenticated)
+        ZStack {
+            Image("background2")
+                .resizable()
+                .frame(size: Screen.size)
+                .overlay {
+                    Color.white.opacity(0.25)
+                        .frame(size: Screen.size)
+                }
+                .ignoresSafeArea()
+            RoundedRectangle(cornerRadius: 10)
+                .fill(.white.opacity(0.7))
+                .frame(width: 300, height: 300)
+                .overlay {
+                    VStack(spacing: 30) {
+                        menuButton(title: L10n.createGame.text, isDisabled: !menuViewModel.gameCenterManager.isAuthenticated) {
+                            navigator.pushCreateGameView(isLocalGame: false)
+                        }
+                        menuButton(title: L10n.joinGame.text, isDisabled: !menuViewModel.gameCenterManager.isAuthenticated) {
+                            navigator.pushJoinGameView()
+                        }
+                        menuButton(title: L10n.localGame.text) {
+                            navigator.pushCreateGameView(isLocalGame: true)
                         }
                     }
-            }
+                    .animation(.easeInOut, value: menuViewModel.gameCenterManager.isAuthenticated)
+                }
+        }
+    }
+    
+    func menuButton(title: String, isDisabled: Bool = false, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            RoundedRectangle(cornerRadius: 20)
+                .fill(.orange)
+                .frame(width: 250, height: 60)
+                .overlay {
+                    Text(title)
+                        .bold()
+                        .foregroundStyle(.white)
+                }
+                .shadow(color: .orange, radius: isDisabled ? 0 : 2)
+                .overlay {
+                    if isDisabled {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.black.opacity(0.20))
+                            .frame(width: 250, height: 60)
+                    }
+                }
+        }
+        .disabled(isDisabled)
     }
 }

@@ -13,7 +13,7 @@ struct Cell {
 
     func getPlayerWithPlayerCellType() -> (player: Player?, playerCellType: PlayerCellType?) {
         switch type {
-        case .default, .portal, .none:
+        case .default, .portal:
             return (nil, nil)
         case let .player(player, playerCellType):
             return (player, playerCellType)
@@ -24,7 +24,7 @@ struct Cell {
         switch type {
         case .default:
             type = .player(player, .temporary)
-        case .player(_, .temporary):
+        case .player(_, let playerCellType) where playerCellType.isActive:
             type = .player(player, .constant)
         default: return
         }

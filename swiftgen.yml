@@ -1,0 +1,19 @@
+strings:
+  inputs: Infection/Resources/en.lproj
+  outputs:
+    - templatePath: swiftgen-swiftui-template.stencil
+      output: Infection/Generated/Strings.swift
+
+xcassets:
+  inputs: Infection/Assets.xcassets
+  outputs:
+    - templateName: swift5
+      params:
+        forceProvidesNamespaces: true
+      output: Infection/Generated/Assets.swift
+
+files:
+  inputs: Infection/Resources
+  outputs:
+    - templateName: structured-swift5
+      output: Infection/Generated/Files.swift

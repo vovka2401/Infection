@@ -1,0 +1,40 @@
+// invite message
+"invite_message" = "Let's play Infection!";
+// mode title 1
+"mode_title1" = "Infect More Cells";
+// mode title 2
+"mode_title2" = "Destroy Bases";
+// mode description 1
+"mode_description1" = "In this mode you must infect more cells than your opponents";
+// mode description 2
+"mode_description2" = "In this mode you must destroy opponents' bases to be the last one to survive";
+// game over
+"game_over" = "Game over";
+// restart
+"restart" = "Restart";
+// private game
+"private_game" = "Private game";
+// fog of war
+"fog_of_war" = "Fog of war";
+// random steps
+"random_steps" = "Random steps";
+// steps per turn
+"steps_per_turn" = "Steps per turn";
+// count of players
+"count_of_players" = "Count of players";
+// create game
+"create_game" = "Create game";
+// join game
+"join_game" = "Join game";
+// local game
+"local_game" = "Local game";
+// mode
+"mode" = "Mode";
+// map
+"map" = "Map";
+// settings
+"settings" = "Settings";
+// winner
+"winner" = "Winner";
+// draw
+"draw" = "Draw";
