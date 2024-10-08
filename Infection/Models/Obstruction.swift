@@ -38,3 +38,11 @@ extension Obstruction: Codable {
         self.init(id: id, coordinates: (leftCoordinate, rightCoordinate))
     }
 }
+
+extension Obstruction: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(coordinates.0)
+        hasher.combine(coordinates.1)
+    }
+}

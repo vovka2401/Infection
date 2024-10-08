@@ -22,10 +22,10 @@
 "steps_per_turn" = "Steps per turn";
 // count of players
 "count_of_players" = "Count of players";
-// create game
-"create_game" = "Create game";
-// join game
-"join_game" = "Join game";
+// create lobby
+"create_lobby" = "Create lobby";
+// join lobby
+"join_lobby" = "Join lobby";
 // local game
 "local_game" = "Local game";
 // mode
@@ -38,3 +38,37 @@
 "winner" = "Winner";
 // draw
 "draw" = "Draw";
+// draw
+"sign_out" = "Sign Out";
+// quit message
+"quit_message" = "Are you sure you want to quit?";
+// id
+"id" = "Id";
+// players
+"players" = "Players";
+// start game
+"start_game" = "Start game";
+// ready
+"ready" = "Ready";
+// kick
+"kick" = "Kick";
+// login
+"login" = "Login";
+// register
+"register" = "Register";
+// name
+"name" = "Name";
+// email address
+"email_address" = "Email Address";
+// password
+"password" = "Password";
+// sign in
+"sign_in" = "Sign In";
+// create account
+"create_account" = "Create Account";
+// error message
+"error_message" = "Email or Password Incorrect";
+// yes
+"yes" = "Yes";
+// no
+"no" = "No";

@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Map: Identifiable {
+struct Map: Identifiable, Hashable {
     let id: UUID
     let size: CGSize
     var cells: [Cell]

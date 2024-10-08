@@ -3,38 +3,52 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var menuViewModel = MenuViewModel()
     @StateObject var navigator = Navigator.shared
+    @StateObject var authViewModel = AuthViewModel()
 
     var body: some View {
         NavigationStack(path: $navigator.path) {
-            MenuView()
-                .environmentObject(menuViewModel)
-                .environmentObject(navigator)
-                .navigationDestination(for: NavigationDestination.self) { value in
-                    switch value {
-                    case .createGameView(isLocalGame: let isLocalGame):
-                        CreateGameView(isLocalGame: isLocalGame)
-                            .environmentObject(menuViewModel)
-                            .environmentObject(navigator)
-                    case .gameView:
-                        GameView(gameViewModel: menuViewModel.gameCenterManager.gameViewModel)
-                    case .joinGameView:
-                        JoinGameView()
-                            .environmentObject(menuViewModel)
-                            .environmentObject(navigator)
+            if authViewModel.state == .signedOut && !UserDefaults.standard.isLoggedIn {
+                LoginView()
+                    .transition(.opacity)
+                    .environmentObject(authViewModel)
+            } else {
+                MenuView()
+                    .transition(.opacity)
+                    .environmentObject(menuViewModel)
+                    .environmentObject(navigator)
+                    .environmentObject(authViewModel)
+                    .navigationDestination(for: NavigationDestination.self) { value in
+                        switch value {
+                        case .createLobbyView(isLocalGame: let isLocalGame):
+                            CreateLobbyView(isLocalGame: isLocalGame)
+                                .environmentObject(menuViewModel)
+                                .environmentObject(navigator)
+                        case .gameView:
+                            GameView(gameViewModel: menuViewModel.gameViewModel)
+                        case .lobbiesView:
+                            LobbiesView()
+                                .environmentObject(menuViewModel)
+                                .environmentObject(navigator)
+                        case .lobbyView(let lobby):
+                            LobbyView(lobby: lobby)
+                                .environmentObject(menuViewModel)
+                                .environmentObject(navigator)
+                        }
                     }
-                }
-                .overlay {
+                    .overlay {
 //                    if !menuViewModel.wasTutorialShown {
 //                        TutorialView()
 //                            .environmentObject(menuViewModel)
 //                            .transition(.opacity)
 //                            .animation(.easeInOut, value: menuViewModel.wasTutorialShown)
 //                    }
-                }
+                    }
+                    .onAppear {
+                        GameManager.shared.authentificatePlayer()
+                    }
+            }
         }
-        .onAppear {
-            menuViewModel.gameCenterManager.authenticatePlayer()
-        }
+        .animation(.easeInOut, value: authViewModel.state)
     }
 }
 

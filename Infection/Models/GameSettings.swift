@@ -1,6 +1,6 @@
 import Foundation
 
-struct GameSettings: Codable {
+struct GameSettings: Codable, Hashable {
     var maxCountOfPlayers: Int
     var countOfStepsPerTurn: Int
     var isFogOfWarEnabled: Bool

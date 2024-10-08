@@ -22,9 +22,9 @@
 
 "count_of_players" = "球员计数";
 
-"create_game" = "创建游戏";
+"create_lobby" = "创建大厅";
 
-"join_game" = "加入游戏";
+"join_lobby" = "加入大厅";
 
 "local_game" = "本地游戏";
 
@@ -37,4 +37,38 @@
 "winner" = "优胜者";
 
 "draw" = "画";
+
+"sign_out" = "登出";
+
+"quit_message" = "您确定要退出吗？";
+
+"id" = "ID";
+
+"players" = "球员";
+
+"start_game" = "开始游戏";
+
+"ready" = "准备好";
+
+"kick" = "排除";
+
+"login" = "登录";
+
+"register" = "登记";
+
+"name" = "姓名";
+
+"email_address" = "电子邮件";
+
+"password" = "密码";
+
+"sign_in" = "登入";
+
+"create_account" = "创建账户";
+
+"error_message" = "电子邮件或密码不正确";
+
+"yes" = "是的";
+
+"no" = "不";
 

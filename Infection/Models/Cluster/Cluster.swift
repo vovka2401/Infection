@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Cluster: Identifiable {
+struct Cluster: Identifiable, Hashable {
     let id: UUID
     var constantCells: [Cell] = []
     var temporaryCells: [Cell] = []

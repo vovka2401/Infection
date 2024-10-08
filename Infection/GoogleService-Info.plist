@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>706773280335-ole1dtahavcish5qhh1tlf45uenuq8h3.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.706773280335-ole1dtahavcish5qhh1tlf45uenuq8h3</string>
 	<key>API_KEY</key>
-	<string>AIzaSyAeCPERDCRc_3wLjGlFrFpSjEU9RVgobUg</string>
+	<string>AIzaSyAT1vOHEA-hRP1hZwrZlmRyggfYl_e8xCs</string>
 	<key>GCM_SENDER_ID</key>
-	<string>362145040926</string>
+	<string>706773280335</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.developer.khvaliuk.Infection</string>
 	<key>PROJECT_ID</key>
-	<string>infection-6b845</string>
+	<string>infection-b037f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>infection-6b845.appspot.com</string>
+	<string>infection-b037f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:362145040926:ios:a98cf74a5eb79830fc3c0f</string>
+	<string>1:706773280335:ios:ba2c6b5df180830e77ac3a</string>
+	<key>DATABASE_URL</key>
+	<string>https://infection-b037f-default-rtdb.firebaseio.com</string>
 </dict>
 </plist>

@@ -22,9 +22,9 @@
 
 "count_of_players" = "Zählung von Spielern";
 
-"create_game" = "Spiel erstellen";
+"create_lobby" = "Lobby erstellen";
 
-"join_game" = "Spiel beitreten";
+"join_lobby" = "Schließen Sie sich der Lobby an";
 
 "local_game" = "Lokales Spiel";
 
@@ -35,4 +35,36 @@
 "settings" = "Einstellungen";
 
 "draw" = "Ziehen";
+
+"sign_out" = "Abmelden";
+
+"quit_message" = "Bist du sicher, dass du aufhören willst?";
+
+"id" = "Ausweis";
+
+"start_game" = "Spiel starten";
+
+"ready" = "Bereit";
+
+"kick" = "Ausschließen";
+
+"login" = "Login";
+
+"register" = "Registrieren";
+
+"name" = "Name";
+
+"email_address" = "E-Mail-Adresse";
+
+"password" = "Passwort";
+
+"sign_in" = "Anmelden";
+
+"create_account" = "Benutzerkonto erstellen";
+
+"error_message" = "E -Mail oder Passwort falsch";
+
+"yes" = "Ja";
+
+"no" = "NEIN";
 

@@ -1,6 +1,6 @@
 import Foundation
 
-enum CellType {
+enum CellType: Hashable {
     case `default`
     case portal(Int)
     case player(Player, PlayerCellType)

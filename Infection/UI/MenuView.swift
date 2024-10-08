@@ -1,8 +1,10 @@
 import SwiftUI
+import Firebase
 
 struct MenuView: View {
     @EnvironmentObject var menuViewModel: MenuViewModel
     @EnvironmentObject var navigator: Navigator
+    @EnvironmentObject var authViewModel: AuthViewModel
 
     var body: some View {
         ZStack {
@@ -16,20 +18,22 @@ struct MenuView: View {
                 .ignoresSafeArea()
             RoundedRectangle(cornerRadius: 10)
                 .fill(.white.opacity(0.7))
-                .frame(width: 300, height: 300)
+                .frame(width: 300, height: 400)
                 .overlay {
                     VStack(spacing: 30) {
-                        menuButton(title: L10n.createGame.text, isDisabled: !menuViewModel.gameCenterManager.isAuthenticated) {
-                            navigator.pushCreateGameView(isLocalGame: false)
+                        menuButton(title: L10n.createLobby.text) {
+                            navigator.pushCreateLobbyView(isLocalGame: false)
                         }
-                        menuButton(title: L10n.joinGame.text, isDisabled: !menuViewModel.gameCenterManager.isAuthenticated) {
-                            navigator.pushJoinGameView()
+                        menuButton(title: L10n.joinLobby.text) {
+                            navigator.pushLobbiesView()
                         }
                         menuButton(title: L10n.localGame.text) {
-                            navigator.pushCreateGameView(isLocalGame: true)
+                            navigator.pushCreateLobbyView(isLocalGame: true)
+                        }
+                        menuButton(title: L10n.signOut.text) {
+                            authViewModel.signOut()
                         }
                     }
-                    .animation(.easeInOut, value: menuViewModel.gameCenterManager.isAuthenticated)
                 }
         }
     }

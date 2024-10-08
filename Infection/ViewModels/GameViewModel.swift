@@ -1,30 +1,34 @@
 import GameKit
 import SwiftUI
+import Firebase
 
 class GameViewModel: NSObject, ObservableObject, Codable {
-    @Published var match: GKMatch?
-    @Published var game: Game!
+    @Published var game: Game
     @Published var availableCells: [Cell] = []
     @Published var foggedCells: [Cell] = []
-    var onDismiss: (() -> Void)?
+    private var gameObserver: UInt?
     
     init(game: Game) {
         self.game = game
     }
 
-    func setup() {
-        setupPlayers()
-        setupCells()
-        sendData()
+    func setup(isHost: Bool = false) {
+        if isHost || game.settings.isLocalGame {
+            setupPlayers()
+            setupCells()
+        } else {
+            updateCells()
+        }
+        observeData()
+        if isHost {
+            sendData()
+        }
     }
     
     func cleanup() {
-        match?.disconnect()
-        match?.delegate = nil
-        match = nil
-        game = nil
         availableCells.removeAll()
         foggedCells.removeAll()
+        removeObservers()
     }
 
     func infectCell(_ cell: Cell) {
@@ -40,7 +44,6 @@ class GameViewModel: NSObject, ObservableObject, Codable {
     }
 
     func restart() {
-        match?.rematch()
         game.restart()
         updateCells()
         sendData()
@@ -48,8 +51,11 @@ class GameViewModel: NSObject, ObservableObject, Codable {
     }
 
     func dismiss() {
-        Navigator.shared.dismiss {
-            self.onDismiss?()
+        game.players.removeAll(where: { $0.id == GameManager.shared.localPlayer?.id })
+        game.isOver = true
+        sendData()
+        Navigator.shared.dismissToMenuView {
+            self.cleanup()
         }
     }
     
@@ -63,12 +69,9 @@ class GameViewModel: NSObject, ObservableObject, Codable {
             game.players = game.map.getDefaultPlayers()
         } else {
             let playerColors = [Color.yellow, .blue, .green, .red, .purple, .orange, .mint, .brown]
-            guard var playerNames = match?.players.map(\.displayName) else { return }
-            playerNames = [GKLocalPlayer.local.displayName] + playerNames
-            playerNames.sort { $0 < $1 }
-            game.players.removeAll()
-            for i in 0 ..< playerNames.count {
-                game.players.append(Player(name: playerNames[i], color: playerColors[i]))
+            game.players.sort { $0.id < $1.id }
+            for i in 0 ..< game.players.count {
+                game.players[i].color = playerColors[i]
             }
         }
     }
@@ -89,7 +92,7 @@ class GameViewModel: NSObject, ObservableObject, Codable {
         }
         game.defaultMap = game.map
         game.currentTurn = Turn(player: game.players[0])
-        game.settings.countOfStepsPerTurn = 4
+        setRandomStepsCountIfNeeded()
         updateCells()
     }
 
@@ -346,7 +349,7 @@ class GameViewModel: NSObject, ObservableObject, Codable {
     }
 
     private func isLocalPlayersTurn() -> Bool {
-        game.currentTurn.player.name == GKLocalPlayer.local.displayName
+        game.currentTurn.player.id == GameManager.shared.localPlayer?.id
     }
     
     private func infectAllCells() {
@@ -371,7 +374,6 @@ class GameViewModel: NSObject, ObservableObject, Codable {
     }
 
     func encode(to encoder: Encoder) throws {
-        guard let game else { return }
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(game, forKey: .game)
     }
@@ -383,31 +385,38 @@ class GameViewModel: NSObject, ObservableObject, Codable {
     }
 }
 
-extension GameViewModel: GKMatchDelegate {
+extension GameViewModel {
     private func sendData() {
-        guard !game.settings.isLocalGame, let match, let game else { return }
-        do {
-            guard let data = try? JSONEncoder().encode(game) else { return }
-            try match.sendData(toAllPlayers: data, with: .reliable)
-        } catch {
-            print("Failed to send data: \(error.localizedDescription)")
-        }
+        FirebaseManager.shared.sendGameData(game)
     }
 
-    func match(_: GKMatch, didReceive data: Data, fromRemotePlayer _: GKPlayer) {
-        do {
-            let game = try JSONDecoder().decode(Game.self, from: data)
-            withAnimation(.easeInOut) {
-                self.game = game
+    private func observeData() {
+        if !game.settings.isLocalGame {
+            gameObserver = FirebaseManager.shared.ref.child("lobbies").child(game.id).child("game").observe(.value) { [self] snapshot in
+                if let stringData = snapshot.value as? String {
+                    let data = Data(stringData.utf8)
+                    do {
+                        let game = try JSONDecoder().decode(Game.self, from: data)
+                        withAnimation(.easeInOut) {
+                            self.game = game
+                        }
+                        if isLocalPlayersTurn() {
+                            updateCells()
+                        } else {
+                            availableCells.removeAll()
+                        }
+                        objectWillChange.send()
+                    } catch {
+                        print(error)
+                    }
+                }
             }
-            if isLocalPlayersTurn() {
-                updateCells()
-            } else {
-                availableCells.removeAll()
-            }
-            objectWillChange.send()
-        } catch {
-            print("Failed to receive data: \(error.localizedDescription)")
+        }
+    }
+    
+    private func removeObservers() {
+        if let gameObserver {
+            FirebaseManager.shared.ref.child("lobbies").child(game.id).child("game").removeObserver(withHandle: gameObserver)
         }
     }
 }

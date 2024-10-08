@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Cell {
+struct Cell: Hashable {
     var type: CellType
     let coordinate: CellCoordinate
     let form: CellForm

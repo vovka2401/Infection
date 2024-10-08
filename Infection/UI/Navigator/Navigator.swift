@@ -6,16 +6,27 @@ class Navigator: ObservableObject {
 
     private init() {}
 
-    func pushCreateGameView(isLocalGame: Bool) {
-        pushView(NavigationDestination.createGameView(isLocalGame: isLocalGame))
+    func pushCreateLobbyView(isLocalGame: Bool) {
+        pushView(NavigationDestination.createLobbyView(isLocalGame: isLocalGame))
     }
 
     func pushGameView(completion: (() -> Void)? = nil) {
         pushView(NavigationDestination.gameView, completion: completion)
     }
 
-    func pushJoinGameView() {
-        pushView(NavigationDestination.joinGameView)
+    func pushLobbiesView() {
+        pushView(NavigationDestination.lobbiesView)
+    }
+
+    func pushLobbyView(lobby: Lobby) {
+        pushView(NavigationDestination.lobbyView(lobby: lobby))
+    }
+
+    func dismissToMenuView(_ completion: (() -> Void)? = nil) {
+        guard !path.isEmpty else { return }
+        path = NavigationPath()
+        completion?()
+        objectWillChange.send()
     }
 
     func dismiss(_ completion: (() -> Void)? = nil) {

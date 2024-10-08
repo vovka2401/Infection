@@ -2,6 +2,7 @@ import SwiftUI
 
 struct GameView: View {
     @ObservedObject var gameViewModel: GameViewModel
+    @State var isAlertPresented = false
 
     var body: some View {
         ZStack {
@@ -23,8 +24,17 @@ struct GameView: View {
                 }
             }
             VStack {
-                NavigationBar(dismiss: gameViewModel.dismiss)
+                NavigationBar(dismiss: { !gameViewModel.game.isOver ? toggleIsAlertPresented() : gameViewModel.dismiss() })
                 Spacer()
+            }
+        }
+        .overlay {
+            if isAlertPresented {
+                AlertView(message: L10n.quitMessage.text) { 
+                    gameViewModel.dismiss()
+                } onDecline: {
+                    toggleIsAlertPresented()
+                }
             }
         }
         .animation(.easeInOut(duration: 1), value: gameViewModel.game.isOver)
@@ -52,7 +62,7 @@ struct GameView: View {
     }
 
     var gameOverView: some View {
-        Color.white.opacity(0.9)
+        Color.white.opacity(0.8)
             .overlay {
                 VStack {
                     Text(gameViewModel.game.winner != nil ? "\(L10n.winner.text): \(gameViewModel.game.winner!.name)" : L10n.draw.text)
@@ -61,14 +71,13 @@ struct GameView: View {
                         .foregroundStyle(Color.orange)
                         .shadow(color: .orange.opacity(0.1), radius: 1)
                         .padding(.bottom, 30)
-                    Button(action: gameViewModel.restart) {
-                        Text(L10n.restart.text)
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.orange)
-                            .shadow(color: .orange.opacity(0.1), radius: 1)
-                    }
                 }
             }
+    }
+    
+    private func toggleIsAlertPresented() {
+        withAnimation(.easeInOut) {
+            isAlertPresented.toggle()
+        }
     }
 }

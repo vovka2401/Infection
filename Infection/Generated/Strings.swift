@@ -7,20 +7,32 @@ import SwiftUI
 public enum L10n {
   /// Count of players
   public static let countOfPlayers = LocalizedString(lookupKey: "count_of_players")
-  /// Create game
-  public static let createGame = LocalizedString(lookupKey: "create_game")
+  /// Create Account
+  public static let createAccount = LocalizedString(lookupKey: "create_account")
+  /// Create lobby
+  public static let createLobby = LocalizedString(lookupKey: "create_lobby")
   /// Draw
   public static let draw = LocalizedString(lookupKey: "draw")
+  /// Email Address
+  public static let emailAddress = LocalizedString(lookupKey: "email_address")
+  /// Email or Password Incorrect
+  public static let errorMessage = LocalizedString(lookupKey: "error_message")
   /// Fog of war
   public static let fogOfWar = LocalizedString(lookupKey: "fog_of_war")
   /// Game over
   public static let gameOver = LocalizedString(lookupKey: "game_over")
+  /// Id
+  public static let id = LocalizedString(lookupKey: "id")
   /// Let's play Infection!
   public static let inviteMessage = LocalizedString(lookupKey: "invite_message")
-  /// Join game
-  public static let joinGame = LocalizedString(lookupKey: "join_game")
+  /// Join lobby
+  public static let joinLobby = LocalizedString(lookupKey: "join_lobby")
+  /// Kick
+  public static let kick = LocalizedString(lookupKey: "kick")
   /// Local game
   public static let localGame = LocalizedString(lookupKey: "local_game")
+  /// Login
+  public static let login = LocalizedString(lookupKey: "login")
   /// Map
   public static let map = LocalizedString(lookupKey: "map")
   /// Mode
@@ -33,18 +45,40 @@ public enum L10n {
   public static let modeTitle1 = LocalizedString(lookupKey: "mode_title1")
   /// Destroy Bases
   public static let modeTitle2 = LocalizedString(lookupKey: "mode_title2")
+  /// Name
+  public static let name = LocalizedString(lookupKey: "name")
+  /// No
+  public static let no = LocalizedString(lookupKey: "no")
+  /// Password
+  public static let password = LocalizedString(lookupKey: "password")
+  /// Players
+  public static let players = LocalizedString(lookupKey: "players")
   /// Private game
   public static let privateGame = LocalizedString(lookupKey: "private_game")
+  /// Are you sure you want to quit?
+  public static let quitMessage = LocalizedString(lookupKey: "quit_message")
   /// Random steps
   public static let randomSteps = LocalizedString(lookupKey: "random_steps")
+  /// Ready
+  public static let ready = LocalizedString(lookupKey: "ready")
+  /// Register
+  public static let register = LocalizedString(lookupKey: "register")
   /// Restart
   public static let restart = LocalizedString(lookupKey: "restart")
   /// Settings
   public static let settings = LocalizedString(lookupKey: "settings")
+  /// Sign In
+  public static let signIn = LocalizedString(lookupKey: "sign_in")
+  /// Sign Out
+  public static let signOut = LocalizedString(lookupKey: "sign_out")
+  /// Start game
+  public static let startGame = LocalizedString(lookupKey: "start_game")
   /// Steps per turn
   public static let stepsPerTurn = LocalizedString(lookupKey: "steps_per_turn")
   /// Winner
   public static let winner = LocalizedString(lookupKey: "winner")
+  /// Yes
+  public static let yes = LocalizedString(lookupKey: "yes")
 }
 
 // MARK: - Implementation Details

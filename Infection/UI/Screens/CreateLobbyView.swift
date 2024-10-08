@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct CreateGameView: View {
+struct CreateLobbyView: View {
     @EnvironmentObject var menuViewModel: MenuViewModel
     @EnvironmentObject var navigator: Navigator
     @State var settings: GameSettings
@@ -42,6 +42,7 @@ struct CreateGameView: View {
                 case .mode: modeView
                 case .map: mapView
                 case .settings: settingsView
+                default: EmptyView()
                 }
                 createGameButton
             }
@@ -153,12 +154,12 @@ struct CreateGameView: View {
     }
 
     var createGameButton: some View {
-        Button(action: startGame) {
+        Button(action: createLobby) {
             RoundedRectangle(cornerRadius: 20)
                 .fill(.orange)
                 .frame(width: 150, height: 60)
                 .overlay {
-                    Text(L10n.createGame.text)
+                    Text(L10n.createLobby.text)
                         .bold()
                         .foregroundStyle(.white)
                 }
@@ -230,16 +231,19 @@ struct CreateGameView: View {
         }
     }
 
-    private func startGame() {
+    private func createLobby() {
+        guard var localPlayer = GameManager.shared.localPlayer else { return }
+        localPlayer.isReady = true
         settings.maxCountOfPlayers = selectedMap.getCountOfPlayers()
-        let game = Game(map: selectedMap, settings: settings)
-        menuViewModel.gameCenterManager.isGameCreator = true
-        menuViewModel.gameCenterManager.gameViewModel = GameViewModel(game: game)
         if settings.isLocalGame {
-            menuViewModel.gameCenterManager.gameViewModel.setup()
+            let game = Game(id: IDGenerator.shared.generateLobbyID(), map: selectedMap, players: [], settings: settings)
+            menuViewModel.gameViewModel = GameViewModel(game: game)
+            menuViewModel.gameViewModel.setup()
             Navigator.shared.pushGameView()
         } else {
-            menuViewModel.gameCenterManager.presentMatchmaker()
+            let lobby = Lobby(settings: settings, players: [localPlayer], map: selectedMap, host: localPlayer)
+            FirebaseManager.shared.sendLobbyData(lobby)
+            navigator.pushLobbyView(lobby: lobby)
         }
     }
 }
@@ -248,4 +252,5 @@ enum RoomState {
     case mode
     case map
     case settings
+    case players
 }

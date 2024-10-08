@@ -64,7 +64,6 @@ struct PageView: View {
                             .resizable()
                             .scaledToFit()
                             .transition(.identity)
-//                            .animation(.easeInOut(duration: 1), value: selectedImage)
                             .padding(.bottom, 10)
                     }
                     Text(page.text)
@@ -99,17 +98,11 @@ struct PageView: View {
                     .frame(height: 70)
                 }
             }
-//            .onAppear {
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-//                    selectNextImage()
-//                }
-//            }
             .onAppear {
                 selectedImage = page.images.first
             }
             .onChange(of: selectedImage) { _ in
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                    //
                     selectNextImage()
                 }
             }
